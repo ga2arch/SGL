@@ -40,5 +40,5 @@ int main(int argc, const char * argv[]) {
 
     stack_allocator.clear();
     
-    
+    std::cout << ptr3->name[0] << std::endl;
 }

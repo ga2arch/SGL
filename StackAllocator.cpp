@@ -8,12 +8,15 @@
 
 #include "StackAllocator.h"
 
-StackAllocator::StackAllocator(uint32_t size): size(size) {
+StackAllocator::StackAllocator(uint32_t size_bytes): size(size_bytes) {
     mem = allocate_aligned(size, 16);
     marker = reinterpret_cast<uintptr_t>(mem);
 }
 
 void* StackAllocator::alloc(uint32_t size_bytes) {
+    if (occupation + size_bytes >= size)
+        throw std::invalid_argument("Not enough space");
+    
     auto address = reinterpret_cast<void*>(marker);
     auto p = new (address) char[size_bytes];
     marker += size_bytes;
