@@ -8,16 +8,25 @@
 
 #include <iostream>
 #include "Memory.h"
+#include "StackAllocator.h"
+
+typedef struct {
+    char name[4];
+} zap;
 
 int main(int argc, const char * argv[]) {
+   
+    StackAllocator stack_allocator(100);
     
-    int* ptr = (int *)allocate_aligned(sizeof ptr, 4);
-    int* ptr2 = (int *)malloc(sizeof(ptr2));
+    zap* ptr = (zap*)stack_allocator.alloc(sizeof(zap));
     
-    *ptr = 2;
-    *ptr2 = 4;
+    ptr->name[0] = 'c';
     
-    free_aligned(ptr);
-    free(ptr2);
+    zap* ptr2 = (zap*)stack_allocator.alloc(sizeof(zap));
+    
+    ptr2->name[0] = 'z';
+
+    stack_allocator.clear();
+    
     
 }
