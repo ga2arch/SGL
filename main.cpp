@@ -7,9 +7,17 @@
 //
 
 #include <iostream>
+#include "Memory.h"
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+    
+    int* ptr = (int *)allocate_aligned(sizeof ptr, 4);
+    int* ptr2 = (int *)malloc(sizeof(ptr2));
+    
+    *ptr = 2;
+    *ptr2 = 4;
+    
+    free_aligned(ptr);
+    free(ptr2);
+    
 }
