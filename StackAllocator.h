@@ -21,15 +21,16 @@ public:
     explicit StackAllocator(uint32_t size);
     
     void* alloc(uint32_t size);
+    void free();
+    void free_to_marker(Marker marker);
+    void clear();
     
     Marker get_marker();
-    
-    void free_to_marker(Marker marker);
-    
-    void clear();
+
 
 private:
     void* mem;
+    bool  open = true;
     
     Marker   marker;
     uint32_t occupation;

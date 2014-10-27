@@ -39,6 +39,7 @@ int main(int argc, const char * argv[]) {
     ptr4->name[0] = 'C'; // C
 
     stack_allocator.clear();
+    stack_allocator.free();
     
     std::cout << ptr3->name[0] << std::endl;
 }

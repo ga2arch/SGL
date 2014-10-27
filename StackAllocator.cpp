@@ -28,7 +28,14 @@ void StackAllocator::free_to_marker(Marker m) {
 }
 
 void StackAllocator::clear() {
+    marker = reinterpret_cast<uintptr_t>(mem);
+}
+
+void StackAllocator::free() {
     free_aligned(mem);
+    size = 0;
+    marker = 0;
+    mem = nullptr;
 }
 
 StackAllocator::Marker StackAllocator::get_marker() {
