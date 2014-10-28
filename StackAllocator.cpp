@@ -13,6 +13,10 @@ StackAllocator::StackAllocator(uint32_t size_bytes): size(size_bytes) {
     marker = reinterpret_cast<uintptr_t>(mem);
 }
 
+StackAllocator::~StackAllocator() {
+    free();
+}
+
 void* StackAllocator::alloc(uint32_t size_bytes) {
     if (occupation + size_bytes >= size)
         throw std::invalid_argument("Not enough space");

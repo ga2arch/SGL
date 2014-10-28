@@ -19,6 +19,7 @@ public:
     typedef uintptr_t Marker;
     
     explicit StackAllocator(uint32_t size);
+    ~StackAllocator();
     
     void* alloc(uint32_t size);
     void free();
