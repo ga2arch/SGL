@@ -17,8 +17,14 @@ class PoolAllocator {
 public:
     PoolAllocator(size_t num, size_t size);
     
+    void* get();
+    void free_block(void* mem);
+    
+    void free();
     
 private:
+    void* mem;
+    
     size_t num;
     size_t size;
     

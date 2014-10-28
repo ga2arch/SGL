@@ -7,3 +7,8 @@
 //
 
 #include "PoolAllocator.h"
+
+PoolAllocator::PoolAllocator(size_t num, size_t size): num(num), size(size) {
+    mem = allocate_aligned(num*size, 16);
+}
+
