@@ -29,5 +29,11 @@ int main(int argc, const char * argv[]) {
     
     *ptr2 = 'A';
     
-    cout << *ptr2 << endl;
+    pool.free_block(ptr);
+    
+    auto ptr3 = reinterpret_cast<char*>(pool.get());
+    auto ptr4 = reinterpret_cast<char*>(pool.get());
+
+    
+    cout << *ptr3 << endl;
 }

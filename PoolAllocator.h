@@ -27,8 +27,11 @@ public:
 private:
     void* mem;
     uintptr_t* mems;
-
-    size_t current;
+    uintptr_t* fblocks;
+    
+    int current;
+    int index;
+    
     size_t num;
     size_t size;
 };
