@@ -19,7 +19,7 @@ StackAllocator::~StackAllocator() {
 
 void* StackAllocator::alloc(uint32_t size_bytes) {
     if (occupation + size_bytes >= size)
-        throw std::invalid_argument("Not enough space");
+        throw("Not enough space");
     
     auto address = reinterpret_cast<void*>(marker);
     auto p = new (address) char[size_bytes];
