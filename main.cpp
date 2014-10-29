@@ -9,37 +9,25 @@
 #include <iostream>
 #include "Memory.h"
 #include "StackAllocator.h"
+#include "PoolAllocator.h"
 
 typedef struct {
-    char name[4];
+    char name;
 } zap;
+
+using namespace std;
 
 int main(int argc, const char * argv[]) {
    
-    StackAllocator stack_allocator(100);
+    PoolAllocator pool(2, sizeof(char));
     
-    zap* ptr = (zap*)stack_allocator.alloc(sizeof(zap));
+    auto ptr = reinterpret_cast<char*>(pool.get());
     
-    ptr->name[0] = 'z'; // z
+    *ptr = 'Z';
     
-    zap* ptr2 = (zap*)stack_allocator.alloc(sizeof(zap));
+    auto ptr2 = reinterpret_cast<char*>(pool.get());
     
-    ptr2->name[0] = 'a'; // a
+    *ptr2 = 'A';
     
-    auto m = stack_allocator.get_marker();
-    
-    zap* ptr3 = (zap*)stack_allocator.alloc(sizeof(zap));
-    
-    ptr3->name[0] = 'p'; // p .. dopo il free C
-    
-    stack_allocator.free_to_marker(m);
-    
-    zap* ptr4 = (zap*)stack_allocator.alloc(sizeof(zap));
-    
-    ptr4->name[0] = 'C'; // C
-
-    stack_allocator.clear();
-    stack_allocator.free();
-    
-    std::cout << ptr3->name[0] << std::endl;
+    cout << *ptr2 << endl;
 }

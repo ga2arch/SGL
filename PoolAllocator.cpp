@@ -10,9 +10,23 @@
 
 PoolAllocator::PoolAllocator(size_t num, size_t size): num(num), size(size) {
     mem = allocate_aligned(num*size, 16);
+    mems = new uintptr_t[num];
     
+    for(int i=0; i<num; i++) {
+        mems[i] = reinterpret_cast<uintptr_t>(mem) + i*size;
+    }
+    
+    current = num-1;
 }
 
 void* PoolAllocator::get() {
+    if (current > size) throw("Error: No more elements available in the pool");
     
+    void* m = reinterpret_cast<void*>(mems[current]);
+    current--;
+    return m;
+}
+
+PoolAllocator::~PoolAllocator() {
+    free_aligned(mem);
 }

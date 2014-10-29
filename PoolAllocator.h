@@ -10,12 +10,14 @@
 #define __SGL__PoolAllocator__
 
 #include <stdio.h>
+#include <ostream>
 #include "Memory.h"
 
 class PoolAllocator {
     
 public:
     PoolAllocator(size_t num, size_t size);
+    ~PoolAllocator();
     
     void* get();
     void free_block(void* mem);
@@ -24,10 +26,11 @@ public:
     
 private:
     void* mem;
-    
+    uintptr_t* mems;
+
+    size_t current;
     size_t num;
     size_t size;
-    
 };
 
 
