@@ -21,6 +21,6 @@ void* DoubleBufferedAllocator::alloc(uint32_t bytes) {
 }
 
 DoubleBufferedAllocator::~DoubleBufferedAllocator() {
-    for (auto& s: stacks)
-        s.free();
+    stacks[0].free();
+    stacks[1].free();
 }
