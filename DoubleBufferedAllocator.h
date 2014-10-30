@@ -16,6 +16,8 @@
 class DoubleBufferedAllocator {
     
 public:
+    explicit DoubleBufferedAllocator();
+    ~DoubleBufferedAllocator();
     
     void swap_buffers();
     void clear_current();

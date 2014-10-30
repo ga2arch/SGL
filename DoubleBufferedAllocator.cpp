@@ -9,5 +9,18 @@
 #include "DoubleBufferedAllocator.h"
 
 void DoubleBufferedAllocator::swap_buffers() {
-    
+    cursor_stack = static_cast<uint32_t>(!cursor_stack);
+}
+
+void DoubleBufferedAllocator::clear_current() {
+    stacks[cursor_stack].clear();
+}
+
+void* DoubleBufferedAllocator::alloc(uint32_t bytes) {
+    return stacks[cursor_stack].alloc(bytes);
+}
+
+DoubleBufferedAllocator::~DoubleBufferedAllocator() {
+    for (auto& s: stacks)
+        s.free();
 }
