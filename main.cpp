@@ -22,8 +22,6 @@ int main(int argc, const char * argv[]) {
 
     LinkedList<int> l;
     
-    l.add_first(12);
-    
     l.push_back(3);
     l.push_front(1);
     

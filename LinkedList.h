@@ -27,6 +27,11 @@ public:
     Link<T> tail;
     size_t size;
     
+    explicit LinkedList() {
+        head.next = nullptr;
+        tail.prev = nullptr;
+    }
+    
     ~LinkedList() {
         auto n = head.next;
         while (n) {
@@ -35,24 +40,20 @@ public:
             n = next;
         }
     }
-    
-    void add_first(const T& elem) {
-        auto lk = new Link<T>();
-        lk->elem = elem;
-        head.next = lk;
-        tail.prev = lk;
-        
-        size++;
-    }
-    
+
     void push_front(const T& elem) {
         auto lk = new Link<T>();
         lk->elem = elem;
         
-        auto s = head.next;
-        head.next = lk;
-        lk->next = s;
-        s->prev = lk;
+        if (head.next) {
+            auto s = head.next;
+            head.next = lk;
+            lk->next = s;
+            s->prev = lk;
+        } else {
+            head.next = lk;
+            tail.prev = lk;
+        }
         
         size++;
     }
@@ -61,10 +62,15 @@ public:
         auto lk = new Link<T>();
         lk->elem = elem;
         
-        auto s = tail.prev;
-        tail.prev = lk;
-        lk->prev = s;
-        s->next = lk;
+        if (tail.prev) {
+            auto s = tail.prev;
+            tail.prev = lk;
+            lk->prev = s;
+            s->next = lk;
+        } else {
+            head.next = lk;
+            tail.prev = lk;
+        }
         
         size++;
     }
