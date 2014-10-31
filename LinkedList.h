@@ -80,9 +80,11 @@ public:
             auto p = tail.prev->prev;
             tail.prev->prev->next = nullptr;
             tail.prev = p;
-        } else {
+            
+            size--;
+            
+        } else
             throw("Error: The list is empty.");
-        }
     }
     
 };
