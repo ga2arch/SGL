@@ -9,7 +9,8 @@
 #include "PoolAllocator.h"
 #include <cmath>
 
-PoolAllocator::PoolAllocator(size_t num, size_t size): num(num), size(size) {
+PoolAllocator::PoolAllocator(size_t num, size_t size): num(num),
+                                                       size(size) {
     mem     = allocate_aligned(num*size, 16);
     mems    = new uintptr_t[num];
     
