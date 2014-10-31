@@ -31,9 +31,9 @@ void* PoolAllocator::get() {
 void PoolAllocator::free_block(void* f_mem) {
     auto m1 = reinterpret_cast<uintptr_t>(f_mem);
     auto m2 = reinterpret_cast<uintptr_t>(mem);
-    ptrdiff_t d = m1 - m2;
+    ptrdiff_t d = m2 - m1;
 
-    if (d < num*size) {
+    if (d > num*size) {
         if (d % num == 0)
             mems[++current] = m1;
         else {
