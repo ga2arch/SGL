@@ -10,6 +10,7 @@
 #include "Memory.h"
 #include "StackAllocator.h"
 #include "PoolAllocator.h"
+#include "LinkedList.h"
 
 typedef struct {
     char name;
@@ -18,20 +19,18 @@ typedef struct {
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-   
-    PoolAllocator pool(2, sizeof(char));
-    
-    auto ptr = reinterpret_cast<char*>(pool.get());
-    
-    *ptr = 'Z';
-    
-    auto ptr2 = reinterpret_cast<char*>(pool.get());
-    
-    *ptr2 = 'A';
-    
-    pool.free_block(ptr);
-    
-    auto ptr3 = reinterpret_cast<char*>(pool.get());
 
-    cout << *ptr3 << endl;
+    LinkedList<int> l;
+    
+    l.add_first(12);
+    
+    l.push_back(3);
+    l.push_front(1);
+    
+    auto n = l.head.next;
+
+    while (n) {
+        cout << n->elem << endl;
+        n = n->next;
+    }
 }
