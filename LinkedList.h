@@ -63,16 +63,26 @@ public:
         lk->elem = elem;
         
         if (tail.prev) {
-            auto s = tail.prev;
+            auto p = tail.prev;
             tail.prev = lk;
-            lk->prev = s;
-            s->next = lk;
+            lk->prev = p;
+            p->next = lk;
         } else {
             head.next = lk;
             tail.prev = lk;
         }
         
         size++;
+    }
+    
+    void remove_last() {
+        if (size > 0) {
+            auto p = tail.prev->prev;
+            tail.prev->prev->next = nullptr;
+            tail.prev = p;
+        } else {
+            throw("Error: The list is empty.");
+        }
     }
     
 };
