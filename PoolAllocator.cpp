@@ -7,6 +7,7 @@
 //
 
 #include "PoolAllocator.h"
+#include <cmath>
 
 PoolAllocator::PoolAllocator(size_t num, size_t size): num(num), size(size) {
     mem     = allocate_aligned(num*size, 16);
@@ -20,22 +21,26 @@ PoolAllocator::PoolAllocator(size_t num, size_t size): num(num), size(size) {
 }
 
 void* PoolAllocator::get() {
-    if (current >= 0) {
-        void* m = reinterpret_cast<void*>(mems[current]);
-        current--;
-        return m;
-    }
+    if (current >= 0)
+        return reinterpret_cast<void*>(mems[current--]);
     else
         throw("Error: No more free blocks available in the pool");
 }
 
-void PoolAllocator::free_block(void* c_mem) {
-    auto m1 = reinterpret_cast<uintptr_t>(c_mem);
+void PoolAllocator::free_block(void* f_mem) {
+    auto m1 = reinterpret_cast<uintptr_t>(f_mem);
     auto m2 = reinterpret_cast<uintptr_t>(mem);
     ptrdiff_t d = m1 - m2;
 
-    if (d < num*size)
-        mems[++current] = reinterpret_cast<uintptr_t>(mem);
+    if (d < num*size) {
+        if (d % num == 0)
+            mems[++current] = m1;
+        else {
+            auto t = trunc(d / num);
+            auto m = (m2 + t*size);
+            mems[++current] = m;
+        }
+    }
     else
         throw("Error: It's not a block of the pool, cannot free");
 }

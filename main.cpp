@@ -20,6 +20,12 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
 
+    PoolAllocator pool(10, 10);
+    
+    zap* m = (zap*)pool.get();
+    
+    pool.free_block(m+1);
+    
     LinkedList<int> l;
     
     l.push_back(3);
