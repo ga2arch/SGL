@@ -30,7 +30,9 @@ int main(int argc, const char * argv[]) {
     
     l.push_back(3);
     l.push_front(1);
-    l.remove_last();
+    l.push_back(10);
+//    l.remove_last();
+//    l.remove(3);
     
     auto n = l.head.next;
 

@@ -87,6 +87,32 @@ public:
             throw("Error: The list is empty.");
     }
     
+    void remove_all(const T& elem) {
+        auto n = head.next;
+        while (n) {
+            auto next = n->next;
+
+            if (n->elem == elem) {
+                if (n->prev && n->next)
+                    n->prev->next = n->next;
+                
+                if (n->prev && !n->next) {
+                    tail.prev = n->prev;
+                    n->prev->next = nullptr;
+                }
+                
+                if (!n->prev && n->next) {
+                    head.next = n->next;
+                    n->next->prev = nullptr;
+                }
+                
+                free(n);
+            }
+            
+            n = next;
+        }
+    }
+    
 };
 
 #endif /* defined(__SGL__LinkedList__) */
