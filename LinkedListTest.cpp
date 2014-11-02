@@ -53,6 +53,12 @@ TEST(LinkedList, RemoveLast) {
     ASSERT_EQ(((Elem*)ls.tail.prev)->value, e1.value);
 }
 
+TEST(LinkedList, ThrowOnRemoveLastEmpty) {
+    LinkedList<int> ls;
+
+    ASSERT_THROW(ls.remove_last(), std::out_of_range);
+}
+
 TEST(LinkedList, Remove) {
     LinkedList<int> ls;
     

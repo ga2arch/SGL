@@ -10,6 +10,7 @@
 #define __SGL__LinkedList__
 
 #include <stdio.h>
+#include <ostream>
 
 template <typename T>
 struct Link {
@@ -25,9 +26,8 @@ public:
     Link<T> tail;
     size_t size;
     
-    explicit LinkedList() {
-        head.next = nullptr;
-        tail.prev = nullptr;
+    explicit LinkedList(): size(0) {
+        head.next = tail.prev = nullptr;
     }
     
     void push_front(Link<T>* lk) {
@@ -67,7 +67,7 @@ public:
             size--;
             
         } else
-            throw("Error: The list is empty.");
+            throw std::out_of_range("Error: The list is empty.");
     }
     
     void remove(Link<T>* lk) {
