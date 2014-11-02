@@ -25,7 +25,7 @@ void* PoolAllocator::get_block() {
     if (current >= 0)
         return reinterpret_cast<void*>(mems[current--]);
     else
-        throw("Error: No more free blocks available in the pool");
+        throw std::invalid_argument("Error: No more free blocks available in the pool");
 }
 
 void PoolAllocator::free_block(void* f_mem) {
@@ -43,7 +43,7 @@ void PoolAllocator::free_block(void* f_mem) {
         }
     }
     else
-        throw("Error: It's not a block of the pool, cannot free");
+        throw std::invalid_argument("Error: It's not a block of the pool, cannot free");
 }
 
 PoolAllocator::~PoolAllocator() {
