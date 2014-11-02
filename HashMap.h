@@ -63,7 +63,7 @@ private:
         auto i = h_fun(key) % SIZE;
         
         if (values[i].key == nullptr)
-            throw std::out_of_range("Error: key not found");
+            throw std::invalid_argument("Error: key not found");
         
         if (*values[i].key == key)
             return &values[i];
@@ -76,7 +76,7 @@ private:
             return &values[i];
         }
         
-        throw std::out_of_range("Error: key not found");
+        throw std::invalid_argument("Error: key not found");
     }
     
     size_t linear_search(size_t i,
