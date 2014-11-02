@@ -41,19 +41,21 @@ int main(int argc, const char * argv[]) {
     
     Zap z1;
     Zap z2;
+    Zap z3;
     
     z1.v = 10;
     z2.v = 12;
+    z3.v = 2;
     
     HashMap<string, Zap, 10> m;
     string k1("ciao");
     string k2("ilaria");
     
-    m.put(k1, z1);
     m.put(k2, z2);
+    m.put(k2, z3);
+    m.put(k1, z3);
     
-    cout << m.get(k2)->v << endl;
-    
+    cout << m.get(k1)->v << endl;
 }
 
 

@@ -34,7 +34,7 @@ public:
         std::hash<K> h_fun;
         auto h = h_fun(key);
         auto i = h % SIZE;
-        if (values[i].key == nullptr) {
+        if (values[i].key == nullptr || *values[i].key == key) {
             values[i] = HashNode<K,V>(&key, &value);
         } else {
             for (; values[i].key != nullptr; i++) {
