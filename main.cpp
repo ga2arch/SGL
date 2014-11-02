@@ -46,10 +46,13 @@ int main(int argc, const char * argv[]) {
     z2.v = 12;
     
     HashMap<string, Zap, 10> m;
-    m.put("ciao", z1);
-    m.put("ilaria", z2);
+    string k1("ciao");
+    string k2("ilaria");
     
-    cout << m.get("ilaria").v << endl;
+    m.put(k1, z1);
+    m.put(k2, z2);
+    
+    cout << m.get(k2)->v << endl;
     
 }
 

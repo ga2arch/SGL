@@ -13,27 +13,50 @@
 #include <string>
 #include <functional>
 
+template <typename K, typename V>
+class HashNode {
+public:
+    
+    explicit HashNode(): key(nullptr), value(nullptr) {};
+    explicit HashNode(K* key, V* value): key(key), value(value) {}
+    
+    K* key;
+    V* value;
+};
+
 template <typename K, typename V, size_t SIZE>
 class HashMap {
     
 public:
     explicit HashMap() {};
     
-    void put(K key, V value) {
+    void put(K& key, V& value) {
         std::hash<K> h_fun;
         auto h = h_fun(key);
         auto i = h % SIZE;
-        values[i] = value;
+        if (values[i].key == nullptr) {
+            values[i] = HashNode<K,V>(&key, &value);
+        } else {
+            for (; values[i].key != nullptr; i++) {
+                if (i >= SIZE) throw ("Error: no space avaliable");
+            }
+            values[i] = HashNode<K,V>(&key, &value);
+        }
     };
     
-    V get(K key) {
+    V* get(K& key) {
         std::hash<K> h_fun;
         auto i = h_fun(key) % SIZE;
-        return values[i];
+
+        for (; *values[i].key != key; i++) {
+            if (i >= SIZE) throw ("Error: Key not found");
+        }
+        
+        return values[i].value;
     }
     
 private:
-    V values[SIZE];
+    HashNode<K,V> values[SIZE];
     
 };
 
