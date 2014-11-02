@@ -58,7 +58,8 @@ int main(int argc, const char * argv[]) {
     m.put(ik1, z1);
     m.put(ik2, z2);
     
-    cout << m.get(ik2)->v << endl;
+    auto z = m.get(ik2);
+    z->v = 30;
 }
 
 
