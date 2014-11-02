@@ -43,20 +43,22 @@ int main(int argc, const char * argv[]) {
     Zap z2;
     Zap z3;
     
-    z1.v = 10;
-    z2.v = 12;
-    z3.v = 2;
+    z1.v = 2;
+    z2.v = 20;
+//    z3.v = 2;
     
-    HashMap<string, Zap, 2> m;
+    HashMap<int, Zap, 2> m;
     string k1("ciao");
     string k2("ilaria");
     string k3("bababa");
     
-    m.put(k2, z2);
-    m.put(k2, z3);
-    m.put(k1, z3);
+    int ik1 = 0;
+    int ik2 = 2;
     
-    cout << m.get(k1)->v << endl;
+    m.put(ik1, z1);
+    m.put(ik2, z2);
+    
+    cout << m.get(ik2)->v << endl;
 }
 
 

@@ -9,6 +9,7 @@
 #ifndef __SGL__HashMap__
 #define __SGL__HashMap__
 
+#include <iostream>
 #include <stdio.h>
 #include <string>
 #include <functional>
@@ -18,11 +19,18 @@ class HashNode {
 public:
     
     explicit HashNode(): key(nullptr), value(nullptr) {};
-    explicit HashNode(K* key, V* value): key(key), value(value) {}
+    explicit HashNode(const K* key, const V* value): key(key), value(value) {}
     
-    K* key;
-    V* value;
+    const K* key;
+    const V* value;
 };
+
+template <typename K>
+size_t f(K& k) {
+    std::hash<K> h_fun;
+    if (k % 2 == 0) return 3669149634153089213;
+    return h_fun(k);
+}
 
 template <typename K, typename V, size_t SIZE>
 class HashMap {
@@ -30,9 +38,10 @@ class HashMap {
 public:
     explicit HashMap() {};
     
-    void put(K& key, V& value) {
+    void put(const K& key, const V& value) {
         std::hash<K> h_fun;
         auto h = h_fun(key);
+       
         size_t i = h % SIZE;
         
         if (values[i].key == nullptr || *values[i].key == key) {
@@ -44,18 +53,18 @@ public:
                 i += j*j;
                 b -= j*j;
                 
-                if (b >= SIZE)
-                    throw std::out_of_range("Error: no space avaliable");
+                if (b < SIZE && values[b].key == nullptr) break;
+                if (i < SIZE && values[i].key == nullptr) break;
                 
-                if (values[i].key == nullptr) break;
-                if (values[b].key == nullptr) break;
+                if (b >= SIZE && i >= SIZE)
+                    throw std::out_of_range("Error: no space avaliable");
                 
             }
             values[i] = HashNode<K,V>(&key, &value);
         }
     };
     
-    V* get(K& key) {
+    const V* get(const K& key) {
         std::hash<K> h_fun;
         auto i = h_fun(key) % SIZE;
 
@@ -73,11 +82,11 @@ public:
                 i += j*j;
                 b -= j*j;
                 
-                if (b >= SIZE)
-                    throw std::out_of_range("Error: key not found");
+                if (b < SIZE && *values[b].key == key) break;
+                if (i < SIZE && *values[i].key == key) break;
                 
-                if (*values[i].key == key) break;
-                if (*values[b].key == key) break;
+                if (b >= SIZE && i >= SIZE)
+                    throw std::out_of_range("Error: key not found");
             }
             
             return values[i].value;
