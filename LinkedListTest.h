@@ -1,14 +1,14 @@
 //
-//  HashMapTest.h
+//  LinkedListTest.h
 //  SGL
 //
 //  Created by Gabriele Carrettoni on 02/11/14.
 //  Copyright (c) 2014 Ga2 & co. All rights reserved.
 //
 
-#ifndef __SGL__HashMapTest__
-#define __SGL__HashMapTest__
+#ifndef __SGL__LinkedListTest__
+#define __SGL__LinkedListTest__
 
 #include <stdio.h>
 
-#endif /* defined(__SGL__HashMapTest__) */
+#endif /* defined(__SGL__LinkedListTest__) */

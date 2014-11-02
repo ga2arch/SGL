@@ -13,8 +13,8 @@
 
 template <typename T>
 struct Link {
-    Link<T>* prev;
-    Link<T>* next;
+    Link<T>* prev = nullptr;
+    Link<T>* next = nullptr;
 };
 
 template <typename T>
