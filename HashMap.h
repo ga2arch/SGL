@@ -9,10 +9,7 @@
 #ifndef __SGL__HashMap__
 #define __SGL__HashMap__
 
-#include <iostream>
-#include <stdio.h>
 #include <string>
-#include <functional>
 
 template <typename K, typename V>
 class HashNode {
