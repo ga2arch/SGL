@@ -47,19 +47,10 @@ public:
         if (values[i].key == nullptr || *values[i].key == key) {
             values[i] = HashNode<K,V>(&key, &value);
         } else {
-            for (int j=1; ;j++) {
-                auto b = i;
-                
-                i += j*j;
-                b -= j*j;
-                
-                if (b < SIZE && values[b].key == nullptr) break;
-                if (i < SIZE && values[i].key == nullptr) break;
-                
-                if (b >= SIZE && i >= SIZE)
-                    throw std::out_of_range("Error: no space avaliable");
-                
-            }
+            i = linear_search(i, nullptr, values,
+                              [](const K* k1, const K* k2)
+                                { return k1 == k2; });
+            
             values[i] = HashNode<K,V>(&key, &value);
         }
     };
@@ -75,20 +66,9 @@ public:
             return values[i].value;
         
         if (values[i].key != nullptr) {
-            
-            for (int j=0; ;j++) {
-                auto b = i;
-                
-                i += j*j;
-                b -= j*j;
-                
-                if (b < SIZE && *values[b].key == key) break;
-                if (i < SIZE && *values[i].key == key) break;
-                
-                if (b >= SIZE && i >= SIZE)
-                    throw std::out_of_range("Error: key not found");
-            }
-            
+            i = linear_search(i, &key, values,
+                              [](const K* k1, const K* k2)
+                                { return *k1 == *k2; });
             return values[i].value;
         }
         
@@ -97,6 +77,25 @@ public:
     
 private:
     HashNode<K,V> values[SIZE];
+    
+    size_t linear_search(size_t i,
+                         const K* key,
+                         HashNode<K, V> (&values)[SIZE],
+                         bool (*f)(const K* k1, const K* k2)) {
+        
+        for (int j=0; ;j++) {
+            auto b = i;
+            
+            i += j*j;
+            b -= j*j;
+            
+            if (i < SIZE && f(values[i].key, key)) return i;
+            if (b < SIZE && f(values[i].key, key)) return b;
+            
+            if (b >= SIZE && i >= SIZE)
+                throw std::out_of_range("Error: key not found");
+        }
+    }
     
 };
 
