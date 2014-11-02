@@ -38,10 +38,14 @@ public:
         if (values[i].key == nullptr || *values[i].key == key) {
             values[i] = HashNode<K,V>(&key, &value);
         } else {
-            int k = 1;
-            for (int j=1; values[i].key != nullptr; j++) {
-                i += k * j;
-                k = -k;
+            for (int j=1; ;j++) {
+                auto b = i;
+                
+                i += j;
+                b -= j;
+                
+                if (values[i].key == nullptr) break;
+                if (values[b].key == nullptr) break;
                 
                 if (i >= SIZE)
                     throw std::out_of_range("Error: no space avaliable");
@@ -54,16 +58,29 @@ public:
         std::hash<K> h_fun;
         auto i = h_fun(key) % SIZE;
 
-        int k = 1;
-        for (int j=1; values[i].key != nullptr; j++) {
-            i += k * j;
-            k = -k;
+        if (*values[i].key == key) {
+            return values[i].value;
             
-            if (i >= SIZE)
-                throw std::out_of_range("Error: no space avaliable");
         }
         
-        return values[i].value;
+        if (values[i].key != nullptr) {
+            for (int j=0; ;j++) {
+                auto b = i;
+                
+                i += j;
+                b -= j;
+                
+                if (*values[i].key == key) break;
+                if (*values[b].key == key) break;
+                
+                if (i >= SIZE)
+                    throw std::out_of_range("Error: no key found");
+            }
+            
+            return values[i].value;
+        }
+        
+        throw std::out_of_range("Error: no key found");
     }
     
 private:
