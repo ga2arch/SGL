@@ -58,6 +58,7 @@ int main(int argc, const char * argv[]) {
     m.put(ik1, z1);
     m.put(ik2, z2);
     
+//    m.remove(ik2);
     auto z = m.get(ik2);
     cout << z->v << endl;
 }

@@ -39,34 +39,45 @@ public:
         } else {
             i = linear_search(i, nullptr, values,
                               [](const K* k1, const K* k2)
-                                { return k1 == k2; });
+                                { return k1 == nullptr; });
             
             values[i] = HashNode<K,V>(&key, &value);
         }
     };
     
     V* get(const K& key) {
-        std::hash<K> h_fun;
-        auto i = h_fun(key) % SIZE;
-
-        if (values[i].key == nullptr)
-            throw std::out_of_range("Error: key not found");
-        
-        if (*values[i].key == key)
-            return values[i].value;
-        
-        if (values[i].key != nullptr) {
-            i = linear_search(i, &key, values,
-                              [](const K* k1, const K* k2)
-                                { return *k1 == *k2; });
-            return values[i].value;
-        }
-        
-        throw std::out_of_range("Error: key not found");
+        return find(key)->value;
+    }
+    
+    void remove(const K& key) {
+        auto node = find(key);
+        node->key = nullptr;
+        node->value = nullptr;
     }
     
 private:
     HashNode<K,V> values[SIZE];
+    
+    HashNode<K, V>* find(const K& key) {
+        std::hash<K> h_fun;
+        auto i = h_fun(key) % SIZE;
+        
+        if (values[i].key == nullptr)
+            throw std::out_of_range("Error: key not found");
+        
+        if (*values[i].key == key)
+            return &values[i];
+        
+        if (values[i].key != nullptr) {
+            i = linear_search(i, &key, values,
+                              [](const K* k1, const K* k2)
+                              { if (k1 != nullptr) return *k1 == *k2;
+                                else return false; });
+            return &values[i];
+        }
+        
+        throw std::out_of_range("Error: key not found");
+    }
     
     size_t linear_search(size_t i,
                          const K* key,
