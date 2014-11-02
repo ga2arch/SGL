@@ -21,7 +21,7 @@ PoolAllocator::PoolAllocator(size_t num, size_t size): num(num),
     current = static_cast<int>(num-1);
 }
 
-void* PoolAllocator::get() {
+void* PoolAllocator::get_block() {
     if (current >= 0)
         return reinterpret_cast<void*>(mems[current--]);
     else

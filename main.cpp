@@ -12,32 +12,29 @@
 #include "PoolAllocator.h"
 #include "LinkedList.h"
 
-typedef struct {
-    char name;
-} zap;
+class Zap: public Link<Zap> {
+public:
+    int v;
+};
 
 using namespace std;
 
 int main(int argc, const char * argv[]) {
 
     PoolAllocator pool(10, 10);
+    LinkedList<Zap> l;
     
-    zap* m = (zap*)pool.get();
+    auto z = reinterpret_cast<Link<Zap>*>(pool.get_block());
     
-    pool.free_block(m+1);
+    ((Zap*)z)->v = 10;
     
-    LinkedList<int> l;
-    
-    l.push_back(3);
-    l.push_front(1);
-    l.push_back(10);
-//    l.remove_last();
-//    l.remove(3);
-    
+    l.push_back(z);
+//    l.remove(z);
+
     auto n = l.head.next;
 
     while (n) {
-        cout << n->elem << endl;
+        cout << ((Zap*)n)->v << endl;
         n = n->next;
     }
 }

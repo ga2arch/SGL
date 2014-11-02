@@ -19,7 +19,7 @@ public:
     PoolAllocator(size_t num, size_t size);
     ~PoolAllocator();
     
-    void* get();
+    void* get_block();
     void free_block(void* mem);
     
     void free();

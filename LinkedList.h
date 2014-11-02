@@ -10,13 +10,12 @@
 #define __SGL__LinkedList__
 
 #include <stdio.h>
+#include "PoolAllocator.h"
 
 template <typename T>
 struct Link {
     Link<T>* prev;
     Link<T>* next;
-    
-    T elem;
 };
 
 template <typename T>
@@ -32,19 +31,7 @@ public:
         tail.prev = nullptr;
     }
     
-    ~LinkedList() {
-        auto n = head.next;
-        while (n) {
-            auto next = n->next;
-            free(n);
-            n = next;
-        }
-    }
-
-    void push_front(const T& elem) {
-        auto lk = new Link<T>();
-        lk->elem = elem;
-        
+    void push_front(Link<T>* lk) {
         if (head.next) {
             auto s = head.next;
             head.next = lk;
@@ -58,10 +45,7 @@ public:
         size++;
     }
     
-    void push_back(const T& elem) {
-        auto lk = new Link<T>();
-        lk->elem = elem;
-        
+    void push_back(Link<T>* lk) {
         if (tail.prev) {
             auto p = tail.prev;
             tail.prev = lk;
@@ -87,30 +71,19 @@ public:
             throw("Error: The list is empty.");
     }
     
-    void remove_all(const T& elem) {
-        auto n = head.next;
-        while (n) {
-            auto next = n->next;
-
-            if (n->elem == elem) {
-                if (n->prev && n->next)
-                    n->prev->next = n->next;
-                
-                if (n->prev && !n->next) {
-                    tail.prev = n->prev;
-                    n->prev->next = nullptr;
-                }
-                
-                if (!n->prev && n->next) {
-                    head.next = n->next;
-                    n->next->prev = nullptr;
-                }
-                
-                free(n);
-            }
-            
-            n = next;
+    void remove(Link<T>* lk) {
+        if (lk->next) {
+            lk->next->prev = lk->prev;
+        } else
+            tail.prev = lk->prev;
+        
+        if (lk->prev) {
+            lk->prev->next = lk->next;
         }
+        else
+            head.next = lk->prev;
+        
+        lk->prev = lk->next = nullptr;
     }
     
 };
