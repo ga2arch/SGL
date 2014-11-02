@@ -47,7 +47,7 @@ int main(int argc, const char * argv[]) {
     z2.v = 12;
     z3.v = 2;
     
-    HashMap<string, Zap, 10> m;
+    HashMap<string, Zap, 2> m;
     string k1("ciao");
     string k2("ilaria");
     string k3("bababa");
@@ -56,7 +56,7 @@ int main(int argc, const char * argv[]) {
     m.put(k2, z3);
     m.put(k1, z3);
     
-    m.get(k3);
+    cout << m.get(k1)->v << endl;
 }
 
 

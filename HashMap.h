@@ -41,14 +41,15 @@ public:
             for (int j=1; ;j++) {
                 auto b = i;
                 
-                i += j;
-                b -= j;
+                i += j*j;
+                b -= j*j;
+                
+                if (b >= SIZE)
+                    throw std::out_of_range("Error: no space avaliable");
                 
                 if (values[i].key == nullptr) break;
                 if (values[b].key == nullptr) break;
                 
-                if (i >= SIZE)
-                    throw std::out_of_range("Error: no space avaliable");
             }
             values[i] = HashNode<K,V>(&key, &value);
         }
@@ -69,14 +70,14 @@ public:
             for (int j=0; ;j++) {
                 auto b = i;
                 
-                i += j;
-                b -= j;
+                i += j*j;
+                b -= j*j;
+                
+                if (b >= SIZE)
+                    throw std::out_of_range("Error: key not found");
                 
                 if (*values[i].key == key) break;
                 if (*values[b].key == key) break;
-                
-                if (i >= SIZE)
-                    throw std::out_of_range("Error: key not found");
             }
             
             return values[i].value;
