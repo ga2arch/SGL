@@ -10,7 +10,6 @@
 #define __SGL__LinkedList__
 
 #include <stdio.h>
-#include "PoolAllocator.h"
 
 template <typename T>
 struct Link {
