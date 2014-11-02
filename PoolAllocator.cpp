@@ -25,7 +25,7 @@ void* PoolAllocator::get_block() {
     if (current >= 0)
         return reinterpret_cast<void*>(mems[current--]);
     else
-        throw std::invalid_argument("Error: No more free blocks available in the pool");
+        throw std::out_of_range("Error: No more free blocks available in the pool");
 }
 
 void PoolAllocator::free_block(void* f_mem) {

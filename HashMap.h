@@ -38,7 +38,7 @@ public:
             values[i] = HashNode<K,V>(&key, &value);
         } else {
             for (; values[i].key != nullptr; i++) {
-                if (i >= SIZE) throw std::invalid_argument("Error: no space avaliable");
+                if (i >= SIZE) throw std::out_of_range("Error: no space avaliable");
             }
             values[i] = HashNode<K,V>(&key, &value);
         }
