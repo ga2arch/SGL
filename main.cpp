@@ -50,12 +50,13 @@ int main(int argc, const char * argv[]) {
     HashMap<string, Zap, 10> m;
     string k1("ciao");
     string k2("ilaria");
+    string k3("bababa");
     
     m.put(k2, z2);
     m.put(k2, z3);
     m.put(k1, z3);
     
-    cout << m.get(k1)->v << endl;
+    m.get(k3);
 }
 
 

@@ -58,12 +58,14 @@ public:
         std::hash<K> h_fun;
         auto i = h_fun(key) % SIZE;
 
-        if (*values[i].key == key) {
+        if (values[i].key == nullptr)
+            throw std::out_of_range("Error: key not found");
+        
+        if (*values[i].key == key)
             return values[i].value;
-            
-        }
         
         if (values[i].key != nullptr) {
+            
             for (int j=0; ;j++) {
                 auto b = i;
                 
@@ -74,13 +76,13 @@ public:
                 if (*values[b].key == key) break;
                 
                 if (i >= SIZE)
-                    throw std::out_of_range("Error: no key found");
+                    throw std::out_of_range("Error: key not found");
             }
             
             return values[i].value;
         }
         
-        throw std::out_of_range("Error: no key found");
+        throw std::out_of_range("Error: key not found");
     }
     
 private:
