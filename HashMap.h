@@ -25,13 +25,6 @@ public:
     V* value;
 };
 
-template <typename K>
-size_t f(K& k) {
-    std::hash<K> h_fun;
-    if (k % 2 == 0) return 3669149634153089213;
-    return h_fun(k);
-}
-
 template <typename K, typename V, size_t SIZE>
 class HashMap {
     
