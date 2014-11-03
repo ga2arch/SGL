@@ -37,9 +37,11 @@ public:
         if (values[i].key == nullptr || *values[i].key == key) {
             values[i] = HashNode<K,V>(&key, &value);
         } else {
-            i = linear_search(i, nullptr, values,
-                              [](const K* k1, const K* k2)
-                                { return k1 == nullptr; });
+            
+            auto fun =  [](const K* k1)
+                            { return k1 == nullptr; };
+            
+            i = linear_search<decltype(fun)>(i, fun);
             
             values[i] = HashNode<K,V>(&key, &value);
         }
@@ -69,20 +71,20 @@ private:
             return &values[i];
         
         if (values[i].key != nullptr) {
-            i = linear_search(i, &key, values,
-                              [](const K* k1, const K* k2)
-                              { if (k1 != nullptr) return *k1 == *k2;
-                                else return false; });
+            auto fun = [&key](const K* k1)
+                            { if (k1 != nullptr) return *k1 == key;
+                              else return false; };
+            
+            i = linear_search<decltype(fun)>(i, fun);
+                              
             return &values[i];
         }
         
         throw std::invalid_argument("Error: key not found");
     }
     
-    size_t linear_search(size_t i,
-                         const K* key,
-                         HashNode<K, V> (&values)[SIZE],
-                         bool (*f)(const K* k1, const K* k2)) {
+    template <typename C>
+    size_t linear_search(size_t i, C f) {
         
         for (int j=0; ;j++) {
             auto b = i;
@@ -90,8 +92,8 @@ private:
             i += j*j;
             b -= j*j;
             
-            if (i < SIZE && f(values[i].key, key)) return i;
-            if (b < SIZE && f(values[i].key, key)) return b;
+            if (i < SIZE && f(values[i].key)) return i;
+            if (b < SIZE && f(values[i].key)) return b;
             
             if (b >= SIZE && i >= SIZE)
                 throw std::out_of_range("Error: key not found");
