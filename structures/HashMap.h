@@ -15,11 +15,11 @@ template <typename K, typename V>
 class HashNode {
 public:
     
-    explicit HashNode(): key(nullptr), value(nullptr) {};
-    explicit HashNode(const K* key, V* value): key(key), value(value) {}
+    explicit HashNode(): key(nullptr) {};
+    explicit HashNode(const K* key, const V& value): key(key), value(value) {}
     
     const K* key;
-    V* value;
+    V value;
 };
 
 template <typename K, typename V, size_t SIZE>
@@ -28,14 +28,14 @@ class HashMap {
 public:
     explicit HashMap() {};
     
-    void put(const K& key, V& value) {
+    void put(const K& key, const V& value) {
         std::hash<K> h_fun;
         auto h = h_fun(key);
        
         size_t i = h % SIZE;
         
         if (values[i].key == nullptr || *values[i].key == key) {
-            values[i] = HashNode<K,V>(&key, &value);
+            values[i] = HashNode<K,V>(&key, value);
         } else {
             
             auto fun =  [](const K* k1)
@@ -43,11 +43,11 @@ public:
             
             i = linear_search<decltype(fun)>(i, fun);
             
-            values[i] = HashNode<K,V>(&key, &value);
+            values[i] = HashNode<K,V>(&key, value);
         }
     };
     
-    V* get(const K& key) {
+    V get(const K& key) {
         return find(key)->value;
     }
     

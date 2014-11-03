@@ -13,8 +13,7 @@
 #include "LinkedList.h"
 #include "HashMap.h"
 
-class Zap: public Link<Zap> {
-public:
+struct Zap {
     int v;
 };
 
@@ -39,28 +38,30 @@ int main(int argc, const char * argv[]) {
 //        n = n->next;
 //    }
     
-    Zap z1;
-    Zap z2;
-    Zap z3;
+    Zap* z1 = new Zap();
+    Zap* z2 = new Zap();
+    Zap* z3 = new Zap();
     
-    z1.v = 2;
-    z2.v = 20;
+    z1->v = 2;
+    z2->v = 20;
 //    z3.v = 2;
     
-    HashMap<int, Zap, 2> m;
+    HashMap<int, Zap*, 2> m;
     string k1("ciao");
     string k2("ilaria");
     string k3("bababa");
     
-    int ik1 = 0;
-    int ik2 = 2;
-    
-    m.put(ik1, z1);
-    m.put(ik2, z2);
+    m.put(0, z1);
+    m.put(1, z2);
     
 //    m.remove(ik2);
-    auto z = m.get(ik2);
+    auto z = m.get(1);
     cout << z->v << endl;
+    
+    delete z1;
+    delete z2;
+    delete z3;
+
 }
 
 
