@@ -46,21 +46,20 @@ int main(int argc, const char * argv[]) {
     z2->v = 20;
 //    z3.v = 2;
     
-    HashMap<int, string, 2> m;
-    string k1("ciao");
+    HashMap<string*, string, 2> m;
+    string* k = new string("ciao");
     string k2("ilaria");
     string k3("bababa");
     
-    m.put(0, k2);
-    m.put(1, k1);
-    m.remove(0);
-//    m.remove(ik2);
-    cout << (m.get(1) == k1);
-    //cout << z << endl;
+    m.put(k, k2);
+//    m.put(k2, k1);
+
+    cout << m.get(k) << endl;
     
     delete z1;
     delete z2;
     delete z3;
+    delete k;
 
 }
 

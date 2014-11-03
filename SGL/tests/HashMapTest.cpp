@@ -26,7 +26,8 @@ TEST(HashMapTest, PutGetKeyByValue) {
 
 TEST(HashMapTest, PutGetKeyByPointer) {
     HashMap<int, std::string*, 10> m;
-    std::string* v = new std::string("ciao");
+    auto v = new std::string("ciao");
+    
     m.put(10, v);
 
     ASSERT_EQ(*m.get(10), *v);
