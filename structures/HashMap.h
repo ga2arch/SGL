@@ -91,7 +91,7 @@ private:
             
             i += j*j;
             b -= j*j;
-            
+                        
             if (i < SIZE && f(values[i].key)) return i;
             if (b < SIZE && f(values[b].key)) return b;
             
