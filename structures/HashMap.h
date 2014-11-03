@@ -54,7 +54,6 @@ public:
     void remove(const K& key) {
         auto node = find(key);
         node->key = nullptr;
-        node->value = nullptr;
     }
     
 private:

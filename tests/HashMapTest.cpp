@@ -19,7 +19,8 @@ TEST(HashMapTest, PutGetKey) {
     HashMap<int, std::string, 10> m;
     std::string v("ciao");
     m.put(10, v);
-    ASSERT_EQ(*m.get(10), v);
+    auto v1 = m.get(10);
+    ASSERT_EQ(v1, v);
 }
 
 TEST(HashMapTest, RemoveKey) {
