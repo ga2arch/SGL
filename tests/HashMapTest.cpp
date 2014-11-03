@@ -50,6 +50,8 @@ TEST(HashMapTest, RemoveKeyByPointer) {
     m.remove(10);
     
     ASSERT_THROW(m.get(10), std::invalid_argument);
+    
+    delete v;
 }
 
 
