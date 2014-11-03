@@ -93,7 +93,7 @@ private:
             b -= j*j;
             
             if (i < SIZE && f(values[i].key)) return i;
-            if (b < SIZE && f(values[i].key)) return b;
+            if (b < SIZE && f(values[b].key)) return b;
             
             if (b >= SIZE && i >= SIZE)
                 throw std::out_of_range("Error: key not found");
