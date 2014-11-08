@@ -10,7 +10,18 @@
 #include <ostream>
 #include <cassert>
 
-void* allocate_aligned(size_t size_bytes, size_t alignment) {
+void free_aligned(void* mem) {
+    const uint8_t* p_aligned_mem = reinterpret_cast<const uint8_t*>(mem);
+    uintptr_t aligned_address = reinterpret_cast<uintptr_t>(p_aligned_mem);
+    ptrdiff_t adjustement = static_cast<ptrdiff_t>(p_aligned_mem[-1]);
+    
+    uintptr_t raw_address = aligned_address - adjustement;
+    void* p_raw_mem = reinterpret_cast<void*>(raw_address);
+    
+    free(p_raw_mem);
+}
+
+std::shared_ptr<void> allocate_aligned(size_t size_bytes, size_t alignment) {
     assert(alignment >= 1);
     assert(alignment <= 128);
     assert((alignment & (alignment - 1)) == 0);
@@ -28,16 +39,7 @@ void* allocate_aligned(size_t size_bytes, size_t alignment) {
     uint8_t* p_aligned_mem = reinterpret_cast<uint8_t*>(aligned_address);
     p_aligned_mem[-1] = static_cast<uint8_t>(adjustement);
     
-    return static_cast<void*>(p_aligned_mem);
+    void* m = static_cast<void*>(p_aligned_mem);
+    return std::shared_ptr<void>(m, [](void* ptr) { free_aligned(ptr); });
 }
 
-void free_aligned(void* mem) {
-    const uint8_t* p_aligned_mem = reinterpret_cast<const uint8_t*>(mem);
-    uintptr_t aligned_address = reinterpret_cast<uintptr_t>(p_aligned_mem);
-    ptrdiff_t adjustement = static_cast<ptrdiff_t>(p_aligned_mem[-1]);
-    
-    uintptr_t raw_address = aligned_address - adjustement;
-    void* p_raw_mem = reinterpret_cast<void*>(raw_address);
-    
-    free(p_raw_mem);
-}

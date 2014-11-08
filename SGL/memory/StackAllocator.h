@@ -21,8 +21,7 @@ public:
     explicit StackAllocator(uint32_t size);
     ~StackAllocator();
     
-    void* alloc(uint32_t size);
-    void free();
+    std::shared_ptr<void> alloc(uint32_t size);
     void free_to_marker(Marker marker);
     void clear();
     
@@ -30,7 +29,7 @@ public:
 
 
 private:
-    void* mem;
+    std::shared_ptr<void> mem;
     bool  open = true;
     
     Marker   marker;

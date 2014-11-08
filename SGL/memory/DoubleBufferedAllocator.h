@@ -17,11 +17,10 @@ class DoubleBufferedAllocator {
     
 public:
     explicit DoubleBufferedAllocator();
-    ~DoubleBufferedAllocator();
     
     void swap_buffers();
     void clear_current();
-    void* alloc(uint32_t bytes);
+    std::shared_ptr<void> alloc(uint32_t bytes);
     
 private:
     uint32_t cursor_stack;
