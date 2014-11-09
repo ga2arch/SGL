@@ -13,8 +13,12 @@
 #include "LinkedList.h"
 #include "HashMap.h"
 
-struct Zap {
+class Zap {
+    
+public:
     int v;
+
+    Zap(int v): v(v) {}
 };
 
 using namespace std;
@@ -38,29 +42,44 @@ int main(int argc, const char * argv[]) {
 //        n = n->next;
 //    }
     
-    Zap* z1 = new Zap();
-    Zap* z2 = new Zap();
-    Zap* z3 = new Zap();
-    
-    z1->v = 2;
-    z2->v = 20;
-//    z3.v = 2;
-    
-    HashMap<string*, string, 2> m;
-    string* k = new string("ciao");
-    string k2("ilaria");
-    string k3("bababa");
-    
-    m.put(k, k2);
-//    m.put(k2, k1);
+//    Zap* z1 = new Zap();
+//    Zap* z2 = new Zap();
+//    Zap* z3 = new Zap();
+//    
+//    z1->v = 2;
+//    z2->v = 20;
+////    z3.v = 2;
+//    
+//    HashMap<string*, string, 2> m;
+//    string* k = new string("ciao");
+//    string k2("ilaria");
+//    string k3("bababa");
+//    
+//    m.put(k, k2);
+////    m.put(k2, k1);
+//
+//    cout << m.get(k) << endl;
+//    
+//    delete z1;
+//    delete z2;
+//    delete z3;
+//    delete k;
 
-    cout << m.get(k) << endl;
+    HashMap<int, unique_ptr<Zap>, 10> m;
+    auto z1 = unique_ptr<Zap>(new Zap(2));
     
-    delete z1;
-    delete z2;
-    delete z3;
-    delete k;
+    m.put(10, std::move(z1));
+    
+    HashMap<int, shared_ptr<Zap>, 10> m1;
+    auto z2 = shared_ptr<Zap>(new Zap(3));
+    
+    m1.put(10, std::move(z2));
+    
+    cout << z1->v << endl;
+    
+    HashMap<int, int, 10> m2;
 
+    m2.put(10, 10);
 }
 
 
