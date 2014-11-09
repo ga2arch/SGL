@@ -16,11 +16,11 @@ class HashNode {
 public:
     
     explicit HashNode(): key(nullptr), value(nullptr) {};
-    explicit HashNode(const K* key, const V* value): key(key),
-                                                     value(value) {}
+    explicit HashNode(const K* key, V* value): key(key),
+                                               value(value) {}
     
     const K* key;
-    const V* value;
+    V* value;
 };
 
 template <typename K, typename V, size_t SIZE>
@@ -29,7 +29,7 @@ class HashMap {
 public:
     explicit HashMap() {};
     
-    void put(const K&& key, const V&& value) {
+    void put(const K&& key, V&& value) {
         std::hash<K> h_fun;
         auto h = h_fun(key);
        
