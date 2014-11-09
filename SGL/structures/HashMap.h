@@ -18,7 +18,7 @@ public:
     
     explicit HashNode(): key(nullptr), value(nullptr) {};
     explicit HashNode(const K* key, V* value): key(key),
-    value(value) {}
+                                               value(value) {}
     
     const K* key;
     V* value;
