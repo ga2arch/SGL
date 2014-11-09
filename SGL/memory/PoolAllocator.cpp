@@ -10,35 +10,32 @@
 #include <cmath>
 
 PoolAllocator::PoolAllocator(size_t num, size_t size): num(num),
-                                                       size(size),
-                                                       mem(allocate_aligned(num*size, 16)) {
+                                                       size(size) {
     
+    mem = allocate_aligned(num*size, 16);
     mems    = new uintptr_t[num];
     
     for(int i=0; i<num; i++) {
-        mems[i] = reinterpret_cast<uintptr_t>(mem.get()) + i*size;
+        mems[i] = reinterpret_cast<uintptr_t>(mem) + i*size;
     }
     
     current = static_cast<int>(num-1);
 }
 
-std::shared_ptr<void> PoolAllocator::get_block() {
+PoolAllocator::~PoolAllocator() {
+    free_aligned(mem);
+}
+
+void* PoolAllocator::get_block() {
     if (current >= 0)
-        return std::shared_ptr<void>(
-                reinterpret_cast<void*>(mems[current--]), [&](void* ptr) {
-                    this->free_block(ptr);
-                });
+        return  reinterpret_cast<void*>(mems[current--]);
     else
         throw std::out_of_range("Error: No more free blocks available in the pool");
 }
 
-void PoolAllocator::free_block(std::shared_ptr<void> block) {
-    block.reset();
-}
-
 void PoolAllocator::free_block(void* block) {
     auto m1 = reinterpret_cast<uintptr_t>(block);
-    auto m2 = reinterpret_cast<uintptr_t>(mem.get());
+    auto m2 = reinterpret_cast<uintptr_t>(mem);
     ptrdiff_t d = m2 - m1;
     
     if (d > num*size) {

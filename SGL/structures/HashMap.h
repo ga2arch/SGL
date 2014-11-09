@@ -25,23 +25,16 @@ public:
 };
 
 template <typename T>
-class Hasher {
-    
-    static size_t hash(T t) {
-        std::hash<T> h_fun;
-        return h_fun(t);
-    }
-    
+struct Hasher {
+    static size_t hash(T t);
 };
 
 template <typename T>
 struct STLHasher: Hasher<T> {
-
     static size_t hash(T t) {
         std::hash<T> h_fun;
         return h_fun(t);
     }
-    
 };
 
 class Linear {

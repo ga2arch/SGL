@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <ostream>
 
-std::shared_ptr<void> allocate_aligned(size_t size_bytes, size_t alignment);
+void* allocate_aligned(size_t size_bytes, size_t alignment);
 void  free_aligned(void* mem);
 
 #endif /* defined(__SGL__Memory__) */

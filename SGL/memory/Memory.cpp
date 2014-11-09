@@ -21,7 +21,7 @@ void free_aligned(void* mem) {
     free(p_raw_mem);
 }
 
-std::shared_ptr<void> allocate_aligned(size_t size_bytes, size_t alignment) {
+void* allocate_aligned(size_t size_bytes, size_t alignment) {
     assert(alignment >= 1);
     assert(alignment <= 128);
     assert((alignment & (alignment - 1)) == 0);
@@ -39,7 +39,6 @@ std::shared_ptr<void> allocate_aligned(size_t size_bytes, size_t alignment) {
     uint8_t* p_aligned_mem = reinterpret_cast<uint8_t*>(aligned_address);
     p_aligned_mem[-1] = static_cast<uint8_t>(adjustement);
     
-    void* m = static_cast<void*>(p_aligned_mem);
-    return std::shared_ptr<void>(m, [](void* ptr) { free_aligned(ptr); });
+    return static_cast<void*>(p_aligned_mem);
 }
 
