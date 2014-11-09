@@ -24,17 +24,32 @@ public:
     V* value;
 };
 
+template <typename T>
+class Hasher {
+    
+    static size_t hash(T t) {
+        std::hash<T> h_fun;
+        return h_fun(t);
+    }
+    
+};
 
-template <typename K, typename V, size_t SIZE>
+template <typename T>
+struct STLHasher: Hasher<T> {
+
+    static size_t hash(T t) {
+        std::hash<T> h_fun;
+        return h_fun(t);
+    }
+    
+};
+
 class Linear {
     
 public:
-    explicit Linear(HashNode<K, V>(&values)[SIZE]): values(values) {};
-    
-    void put(const K&& key, V&& value) {
-        std::hash<K> h_fun;
-        auto h = h_fun(key);
-        
+    template <typename K, typename V, class H, size_t SIZE>
+    void put(const K&& key, V&& value, HashNode<K, V>(&values)[SIZE]) {
+        auto h = H::hash(key);
         size_t i = h % SIZE;
         
         if (values[i].key == nullptr || *values[i].key == key) {
@@ -44,17 +59,18 @@ public:
             auto fun =  [](const K* k1)
             { return k1 == nullptr; };
             
-            i = linear_search<decltype(fun)>(i, fun);
+            i = linear_search<K, V, decltype(fun), SIZE>(i, fun, values);
             
             values[i] = HashNode<K,V>(&key, &value);
         }
 
     }
     
-    HashNode<K, V>* find(const K& key) {
-        std::hash<K> h_fun;
-        auto i = h_fun(key) % SIZE;
-        
+    template <typename K, typename V, typename H, size_t SIZE>
+    HashNode<K, V>* find(const K&& key, HashNode<K, V>(&values)[SIZE]) {
+        auto h = STLHasher<K>::hash(key);
+        size_t i = h % SIZE;
+
         if (values[i].key == nullptr)
             throw std::invalid_argument("Error: key not found");
         
@@ -66,7 +82,7 @@ public:
             { if (k1 != nullptr) return *k1 == key;
                 else return false; };
             
-            i = linear_search<decltype(fun)>(i, fun);
+            i = linear_search<K, V, decltype(fun), SIZE>(i, fun, values);
             
             return &values[i];
         }
@@ -74,8 +90,9 @@ public:
         throw std::invalid_argument("Error: key not found");
     }
     
-    template <typename C>
-    size_t linear_search(size_t i, C f) {
+private:
+    template <typename K, typename V, typename C, size_t SIZE>
+    size_t linear_search(size_t i, C f, HashNode<K, V>(&values)[SIZE]) {
         
         for (int j=0; ;j++) {
             auto b = i;
@@ -91,25 +108,24 @@ public:
         }
     }
     
-private:
-    HashNode<K, V>(&values)[SIZE];
-
 };
 
 template <typename K, typename V, size_t SIZE,
-         template <typename,typename,size_t> class TYPE = Linear>
-
+          class TYPE = Linear,
+          class H = STLHasher<K>>
 class HashMap {
     
 public:
-    explicit HashMap(): type(values) {};
+    explicit HashMap() {};
     
     void put(const K&& key, V&& value) {
-        type.put(std::move(key), std::move(value));
+        static_assert(std::is_base_of<Hasher<K>, H>::value, "Invalid Hasher");
+        type.template put<K,V,H,SIZE>(std::move(key), std::move(value), values);
     };
     
-    V& get(const K& key) {
-        return *type.find(key)->value;
+    V& get(const K&& key) {
+        static_assert(std::is_base_of<Hasher<K>, H>::value, "Invalid Hasher");
+        return *type.template find<K,V,H,SIZE>(std::move(key), values)->value;
     }
     
     void remove(const K& key) {
@@ -120,7 +136,7 @@ public:
     
 private:
     HashNode<K,V> values[SIZE];
-    TYPE<K, V, SIZE> type;
+    TYPE type;
     
 };
 
