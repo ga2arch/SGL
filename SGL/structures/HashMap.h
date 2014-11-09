@@ -10,6 +10,7 @@
 #define __SGL__HashMap__
 
 #include <string>
+#include <utility>
 
 template <typename K, typename V>
 class HashNode {
@@ -17,22 +18,23 @@ public:
     
     explicit HashNode(): key(nullptr), value(nullptr) {};
     explicit HashNode(const K* key, V* value): key(key),
-                                               value(value) {}
+    value(value) {}
     
     const K* key;
     V* value;
 };
 
+
 template <typename K, typename V, size_t SIZE>
-class HashMap {
+class Linear {
     
 public:
-    explicit HashMap() {};
+    explicit Linear(HashNode<K, V>(&values)[SIZE]): values(values) {};
     
     void put(const K&& key, V&& value) {
         std::hash<K> h_fun;
         auto h = h_fun(key);
-       
+        
         size_t i = h % SIZE;
         
         if (values[i].key == nullptr || *values[i].key == key) {
@@ -40,26 +42,14 @@ public:
         } else {
             
             auto fun =  [](const K* k1)
-                            { return k1 == nullptr; };
+            { return k1 == nullptr; };
             
             i = linear_search<decltype(fun)>(i, fun);
             
             values[i] = HashNode<K,V>(&key, &value);
         }
-    };
-    
-    V& get(const K& key) {
-        return *find(key)->value;
+
     }
-    
-    void remove(const K& key) {
-        auto node = find(key);
-        node->key = nullptr;
-        node->value = nullptr;
-    }
-    
-private:
-    HashNode<K,V> values[SIZE];
     
     HashNode<K, V>* find(const K& key) {
         std::hash<K> h_fun;
@@ -73,11 +63,11 @@ private:
         
         if (values[i].key != nullptr) {
             auto fun = [&key](const K* k1)
-                            { if (k1 != nullptr) return *k1 == key;
-                              else return false; };
+            { if (k1 != nullptr) return *k1 == key;
+                else return false; };
             
             i = linear_search<decltype(fun)>(i, fun);
-                              
+            
             return &values[i];
         }
         
@@ -92,7 +82,7 @@ private:
             
             i += j*j;
             b -= j*j;
-                        
+            
             if (i < SIZE && f(values[i].key)) return i;
             if (b < SIZE && f(values[b].key)) return b;
             
@@ -100,6 +90,37 @@ private:
                 throw std::out_of_range("Error: key not found");
         }
     }
+    
+private:
+    HashNode<K, V>(&values)[SIZE];
+
+};
+
+template <typename K, typename V, size_t SIZE,
+         template <typename,typename,size_t> class TYPE = Linear>
+
+class HashMap {
+    
+public:
+    explicit HashMap(): type(values) {};
+    
+    void put(const K&& key, V&& value) {
+        type.put(std::move(key), std::move(value));
+    };
+    
+    V& get(const K& key) {
+        return *type.find(key)->value;
+    }
+    
+    void remove(const K& key) {
+        auto node = find(key);
+        node->key = nullptr;
+        node->value = nullptr;
+    }
+    
+private:
+    HashNode<K,V> values[SIZE];
+    TYPE<K, V, SIZE> type;
     
 };
 

@@ -23,7 +23,7 @@ public:
 
 using namespace std;
 
-HashMap<int, unique_ptr<Zap>, 10> m;
+HashMap<int, unique_ptr<Zap>, 10, Linear> m;
 
 void test() {
     cout << m.get(1)->v << endl;
