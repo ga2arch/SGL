@@ -59,11 +59,21 @@ public:
     }
     
     T* remove_last() {
-        if (size > 0) {
+        if (size > 1) {
             auto l = tail.prev;
             remove(l);
             
             return reinterpret_cast<T*>(l);
+        
+        } else if (size == 1) {
+            auto l = tail.prev;
+            head.next = nullptr;
+            tail.prev = nullptr;
+            
+            size--;
+            
+            return reinterpret_cast<T*>(l);
+            
         } else
             throw std::out_of_range("Error: The list is empty.");
     }

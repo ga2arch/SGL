@@ -26,18 +26,21 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     
-    PoolAllocator pool(10, sizeof(Zap));
-    Queue<Zap> q(pool);
+    PoolAllocator pool(10, sizeof(int));
+    Queue<int> q(pool);
     
     Zap z1(10);
     Zap z2(3);
     
-    q.enqueue(std::move(z1));
-    q.enqueue(std::move(z2));
-    q.enqueue(std::move(z2));
-
-    cout << q.dequeue()->v << endl;
+//    q.enqueue(std::move(z1));
+//    q.enqueue(std::move(z2));
+//    q.enqueue(std::move(z2));
+//
+//    cout << q.dequeue()->v << endl;
+//
+    q.enqueue(10);
     
+    cout << *q.dequeue() << endl;
 }
 
 
