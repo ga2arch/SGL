@@ -58,14 +58,12 @@ public:
         size++;
     }
     
-    void remove_last() {
+    T* remove_last() {
         if (size > 0) {
-            auto p = tail.prev->prev;
-            tail.prev->prev->next = nullptr;
-            tail.prev = p;
+            auto l = tail.prev;
+            remove(l);
             
-            size--;
-            
+            return reinterpret_cast<T*>(l);
         } else
             throw std::out_of_range("Error: The list is empty.");
     }
@@ -83,8 +81,9 @@ public:
             head.next = lk->prev;
         
         lk->prev = lk->next = nullptr;
+        
+        size--;
     }
-    
 };
 
 #endif /* defined(__SGL__LinkedList__) */

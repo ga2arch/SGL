@@ -14,22 +14,23 @@
 #include "Memory.h"
 
 class StackAllocator {
-
+    
 public:
     typedef uintptr_t Marker;
     
     explicit StackAllocator(uint32_t size);
     ~StackAllocator();
     
-    std::shared_ptr<void> alloc(uint32_t size);
+    void* alloc(uint32_t size);
+    void free();
     void free_to_marker(Marker marker);
     void clear();
     
     Marker get_marker();
-
-
+    
+    
 private:
-    std::shared_ptr<void> mem;
+    void* mem;
     bool  open = true;
     
     Marker   marker;

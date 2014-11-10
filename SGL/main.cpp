@@ -12,8 +12,9 @@
 #include "PoolAllocator.h"
 #include "LinkedList.h"
 #include "HashMap.h"
+#include "Queue.h"
 
-class Zap {
+class Zap: Link<Zap> {
     
 public:
     int v;
@@ -23,18 +24,19 @@ public:
 
 using namespace std;
 
-HashMap<int, unique_ptr<Zap>, 10, Linear, STLHasher<int>> m;
-
-void test() {
-    cout << m.get(1)->v << endl;
-
-}
-
 int main(int argc, const char * argv[]) {
-    auto z = unique_ptr<Zap>(new Zap(10));
-    m.put(1, std::move(z));
+    
+    PoolAllocator pool(10, sizeof(Zap));
+    Queue<Zap> q(pool);
+    
+    Zap z1(10);
+    Zap z2(3);
+    
+    q.enqueue(std::move(z1));
+    q.enqueue(std::move(z2));
+    q.enqueue(std::move(z2));
 
-    test();
+    cout << q.dequeue()->v << endl;
     
 }
 

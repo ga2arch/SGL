@@ -23,6 +23,7 @@
 		E086BC441A06E04B009F4A23 /* LinkedListTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E086BC421A06E04B009F4A23 /* LinkedListTest.cpp */; };
 		E086BC461A06E4E8009F4A23 /* LinkedList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E086BC451A06E4E8009F4A23 /* LinkedList.cpp */; };
 		E08D407C1A028CD700A90576 /* DoubleBufferedAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E08D407A1A028CD700A90576 /* DoubleBufferedAllocator.cpp */; };
+		E0DAFA381A10321600DBDF33 /* Queue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0DAFA361A10321600DBDF33 /* Queue.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -68,6 +69,8 @@
 		E08D407A1A028CD700A90576 /* DoubleBufferedAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DoubleBufferedAllocator.cpp; sourceTree = "<group>"; };
 		E08D407B1A028CD700A90576 /* DoubleBufferedAllocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleBufferedAllocator.h; sourceTree = "<group>"; };
 		E08D40801A03D79A00A90576 /* LinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkedList.h; sourceTree = "<group>"; };
+		E0DAFA361A10321600DBDF33 /* Queue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Queue.cpp; sourceTree = "<group>"; };
+		E0DAFA371A10321600DBDF33 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +164,8 @@
 				E08D40801A03D79A00A90576 /* LinkedList.h */,
 				E081A0B41A065583005FAB71 /* HashMap.cpp */,
 				E081A0B51A065583005FAB71 /* HashMap.h */,
+				E0DAFA361A10321600DBDF33 /* Queue.cpp */,
+				E0DAFA371A10321600DBDF33 /* Queue.h */,
 			);
 			name = structures;
 			path = SGL/structures;
@@ -250,6 +255,7 @@
 				A2B623C719FC02C800AC3DEA /* main.cpp in Sources */,
 				E081A0B61A065583005FAB71 /* HashMap.cpp in Sources */,
 				E086BC461A06E4E8009F4A23 /* LinkedList.cpp in Sources */,
+				E0DAFA381A10321600DBDF33 /* Queue.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,6 +445,7 @@
 				E086BC381A06DA8D009F4A23 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

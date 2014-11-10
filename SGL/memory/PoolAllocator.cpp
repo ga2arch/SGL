@@ -12,7 +12,7 @@
 PoolAllocator::PoolAllocator(size_t num, size_t size): num(num),
                                                        size(size) {
     
-    mem = allocate_aligned(num*size, 16);
+    mem     = allocate_aligned(num*size, 16);
     mems    = new uintptr_t[num];
     
     for(int i=0; i<num; i++) {
@@ -24,11 +24,12 @@ PoolAllocator::PoolAllocator(size_t num, size_t size): num(num),
 
 PoolAllocator::~PoolAllocator() {
     free_aligned(mem);
+    delete [] mems;
 }
 
 void* PoolAllocator::get_block() {
     if (current >= 0)
-        return  reinterpret_cast<void*>(mems[current--]);
+        return reinterpret_cast<void*>(mems[current--]);
     else
         throw std::out_of_range("Error: No more free blocks available in the pool");
 }

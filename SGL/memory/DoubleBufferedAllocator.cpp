@@ -16,6 +16,11 @@ void DoubleBufferedAllocator::clear_current() {
     stacks[cursor_stack].clear();
 }
 
-std::shared_ptr<void> DoubleBufferedAllocator::alloc(uint32_t bytes) {
+void* DoubleBufferedAllocator::alloc(uint32_t bytes) {
     return stacks[cursor_stack].alloc(bytes);
+}
+
+DoubleBufferedAllocator::~DoubleBufferedAllocator() {
+    stacks[0].free();
+    stacks[1].free();
 }
