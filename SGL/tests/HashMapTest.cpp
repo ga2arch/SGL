@@ -19,7 +19,7 @@ TEST(HashMapTest, ThrowsOnNotFoundKey) {
 TEST(HashMapTest, PutGetKeyByValue) {
     HashMap<int, std::string, 10> m;
     std::string v("ciao");
-    m.put(10, v);
+    m.put(10, std::move(v));
     
     ASSERT_EQ(m.get(10), v);
 }
@@ -28,7 +28,7 @@ TEST(HashMapTest, PutGetKeyByPointer) {
     HashMap<int, std::string*, 10> m;
     auto v = new std::string("ciao");
     
-    m.put(10, v);
+    m.put(10, std::move(v));
 
     ASSERT_EQ(*m.get(10), *v);
     delete v;
@@ -37,7 +37,7 @@ TEST(HashMapTest, PutGetKeyByPointer) {
 TEST(HashMapTest, RemoveKeyByValue) {
     HashMap<int, std::string, 10> m;
     std::string v("ciao");
-    m.put(10, v);
+    m.put(10, std::move(v));
     m.remove(10);
     
     ASSERT_THROW(m.get(10), std::invalid_argument);
@@ -47,7 +47,7 @@ TEST(HashMapTest, RemoveKeyByPointer) {
     HashMap<int, std::string*, 10> m;
     std::string* v = new std::string("ciao");
     
-    m.put(10, v);
+    m.put(10, std::move(v));
     m.remove(10);
     
     ASSERT_THROW(m.get(10), std::invalid_argument);

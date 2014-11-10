@@ -122,7 +122,7 @@ public:
     }
     
     void remove(const K& key) {
-        auto node = find(key);
+        auto node = type.template find<K,V,H,SIZE>(std::move(key), values);
         node->key = nullptr;
         node->value = nullptr;
     }
