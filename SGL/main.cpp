@@ -26,8 +26,8 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     
-    PoolAllocator pool(10, sizeof(int));
-    Queue<int> q(pool);
+    PoolAllocator pool(10, sizeof(Zap));
+    Queue<Zap> q(pool);
     
     Zap z1(10);
     Zap z2(3);
@@ -38,9 +38,9 @@ int main(int argc, const char * argv[]) {
 //
 //    cout << q.dequeue()->v << endl;
 //
-    q.enqueue(10);
+    q.emplace(10);
     
-    cout << *q.dequeue() << endl;
+    cout << q.dequeue()->v << endl;
 }
 
 

@@ -24,6 +24,12 @@ public:
         list.push_back(reinterpret_cast<Link<T>*>(lk));
     };
     
+    template <typename ...Args>
+    void emplace(Args&&... args) {
+        auto lk = new (pool.get_block()) T(std::forward<T>(args)...);
+        list.push_back(reinterpret_cast<Link<T>*>(lk));
+    }
+    
     T* dequeue() {
         return list.remove_last();
     };
