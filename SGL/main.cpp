@@ -20,6 +20,10 @@ public:
     int v;
 
     Zap(int v): v(v) {}
+    
+    Zap(const Zap& z): v(z.v) {}
+    Zap(Zap&& z): v(std::move(z.v)) {}
+
 };
 
 using namespace std;
@@ -27,10 +31,11 @@ using namespace std;
 int main(int argc, const char * argv[]) {
     
     PoolAllocator pool(10, sizeof(Zap));
-    Queue<Zap> q(pool);
+    Queue<shared_ptr<Zap>> q(pool);
     
     Zap z1(10);
     Zap z2(3);
+    auto zap = shared_ptr<Zap>(new Zap(20));
     
 //    q.enqueue(std::move(z1));
 //    q.enqueue(std::move(z2));
@@ -38,7 +43,7 @@ int main(int argc, const char * argv[]) {
 //
 //    cout << q.dequeue()->v << endl;
 //
-    q.emplace(10);
+    q.enqueue(std::move(zap));
     
     cout << q.dequeue()->v << endl;
 }

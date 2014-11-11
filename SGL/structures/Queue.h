@@ -19,6 +19,11 @@ class Queue {
 public:
     explicit Queue(PoolAllocator& pool): pool(pool) {}
     
+    void enqueue(const T& t) {
+        auto lk = new (pool.get_block()) T(t);
+        list.push_back(reinterpret_cast<Link<T>*>(lk));
+    }
+    
     void enqueue(T&& t) {
         auto lk = new (pool.get_block()) T(std::forward<T>(t));
         list.push_back(reinterpret_cast<Link<T>*>(lk));
@@ -30,7 +35,7 @@ public:
         list.push_back(reinterpret_cast<Link<T>*>(lk));
     }
     
-    T* dequeue() {
+    T dequeue() {
         return list.remove_last();
     };
     

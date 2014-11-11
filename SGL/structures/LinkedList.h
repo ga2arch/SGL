@@ -11,11 +11,16 @@
 
 #include <stdio.h>
 #include <ostream>
+#include <utility>
 
 template <typename T>
 struct Link {
     Link<T>* prev = nullptr;
     Link<T>* next = nullptr;
+    
+    Link() {};
+    Link(const Link<T>& t): prev(t.prev), next(t.next) {};
+    Link(Link<T>&& t): prev(std::move(t.prev)), next(std::move(t.next)) {};
 };
 
 template <typename T>
@@ -58,12 +63,12 @@ public:
         size++;
     }
     
-    T* remove_last() {
+    T remove_last() {
         if (size > 1) {
             auto l = tail.prev;
             remove(l);
             
-            return reinterpret_cast<T*>(l);
+            return std::forward<T>(*reinterpret_cast<T*>(l));
         
         } else if (size == 1) {
             auto l = tail.prev;
@@ -72,7 +77,7 @@ public:
             
             size--;
             
-            return reinterpret_cast<T*>(l);
+            return std::forward<T>(*reinterpret_cast<T*>(l));
             
         } else
             throw std::out_of_range("Error: The list is empty.");
