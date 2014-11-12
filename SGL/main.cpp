@@ -31,7 +31,7 @@ using namespace std;
 int main(int argc, const char * argv[]) {
     
     PoolAllocator pool(10, sizeof(Zap));
-    Queue<shared_ptr<Zap>> q(pool);
+    Queue<Zap> q(pool);
     
     Zap z1(10);
     Zap z2(3);
@@ -43,9 +43,9 @@ int main(int argc, const char * argv[]) {
 //
 //    cout << q.dequeue()->v << endl;
 //
-    q.enqueue(std::move(zap));
+    q.enqueue(z2);
     
-    cout << q.dequeue()->v << endl;
+    cout << q.dequeue().v << endl;
 }
 
 
