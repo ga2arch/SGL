@@ -18,7 +18,7 @@
 using namespace std;
 using namespace sgl::structures;
 
-class Zap{
+class Zap: public Link<Zap> {
     
 public:
     int v;
@@ -81,6 +81,15 @@ int main(int argc, const char * argv[]) {
     cout << b.v << endl;
     
     //cout << a.get<0>().v << endl;
+    
+    sgl::memory::PoolAllocator pool(10, sizeof(Zap));
+    Queue<Zap> q(pool);
+    
+    q.emplace(10);
+    
+    auto&& z3 = q.dequeue();
+    
+    cout << z3.v << endl;
     
 }
 

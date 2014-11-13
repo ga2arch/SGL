@@ -25,7 +25,7 @@ namespace sgl { namespace structures {
                                             && are_same<T, Args...>::value,T>::type>
         FixedArray(Args... args) {
             data_ = std::unique_ptr<T[]>(new T[SIZE]{std::forward<Args>(args)...});
-        };
+        }
         
         FixedArray() {
             data_ = std::unique_ptr<T[]>(new T[SIZE]);
