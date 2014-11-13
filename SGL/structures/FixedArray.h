@@ -36,13 +36,7 @@ namespace sgl { namespace structures {
         get() {
             return data_[n];
         }
-        
-        template <size_t n>
-        typename std::enable_if<(n < SIZE && n >= 0), T>::type&&
-        remove() {
-            return std::move(data_[n]);
-        }
-        
+
         template <size_t n>
         void_t<typename std::enable_if<(n < SIZE && n >= 0), T>::type>
         insert(T&& elem) {
