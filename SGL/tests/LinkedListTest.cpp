@@ -10,6 +10,8 @@
 #include "LinkedList.h"
 #include <gtest/gtest.h>
 
+using namespace sgl::structures;
+
 class Elem: public Link<int> {
 public:
     explicit Elem(int v): value(v) {};

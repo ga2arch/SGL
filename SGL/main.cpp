@@ -11,7 +11,7 @@
 #include "StackAllocator.h"
 #include "PoolAllocator.h"
 #include "LinkedList.h"
-#include "HashMap.h"
+#include "FixedHashMap.h"
 #include "Queue.h"
 
 using namespace sgl::structures;
@@ -32,22 +32,29 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     
-    sgl::memory::PoolAllocator pool(10, sizeof(Zap));
-    Queue<Zap> q(pool);
+//    sgl::memory::PoolAllocator pool(10, sizeof(Zap));
+//    Queue<Zap> q(pool);
+//    
+//    Zap z1(10);
+//    Zap z2(3);
+//    auto zap = shared_ptr<Zap>(new Zap(20));
+//    
+////    q.enqueue(std::move(z1));
+////    q.enqueue(std::move(z2));
+////    q.enqueue(std::move(z2));
+////
+////    cout << q.dequeue()->v << endl;
+////
+//    q.enqueue(z2);
+//    
+    //cout << q.dequeue().v << endl;
     
-    Zap z1(10);
-    Zap z2(3);
-    auto zap = shared_ptr<Zap>(new Zap(20));
+    FixedHashMap<int, std::string, 10> m;
     
-//    q.enqueue(std::move(z1));
-//    q.enqueue(std::move(z2));
-//    q.enqueue(std::move(z2));
-//
-//    cout << q.dequeue()->v << endl;
-//
-    q.enqueue(z2);
+    m.put(10, std::string("ciao"));
     
-    cout << q.dequeue().v << endl;
+    std::cout << m.get(10) << endl;
+    
 }
 
 

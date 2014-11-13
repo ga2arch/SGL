@@ -9,7 +9,7 @@
 #include <iostream>
 #include <gtest/gtest.h>
 
-#include "HashMapTest.h"
+#include "FixedHashMapTest.h"
 
 int main(int argc, char *argv[]) {
     testing::InitGoogleTest(&argc, argv);

@@ -13,7 +13,7 @@
 		E02012D319FFE1B900ADC2D0 /* PoolAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E02012D119FFE1B900ADC2D0 /* PoolAllocator.cpp */; };
 		E086BC351A06DA8D009F4A23 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E086BC341A06DA8D009F4A23 /* main.cpp */; };
 		E086BC391A06DAA9009F4A23 /* gtest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E086BC2C1A06D8DA009F4A23 /* gtest.framework */; };
-		E086BC3A1A06DB40009F4A23 /* HashMapTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E019FBF31A06D3390051B069 /* HashMapTest.cpp */; };
+		E086BC3A1A06DB40009F4A23 /* FixedHashMapTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E019FBF31A06D3390051B069 /* FixedHashMapTest.cpp */; };
 		E086BC3E1A06DB8A009F4A23 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A211532319FC16B7005F9A5F /* Memory.cpp */; };
 		E086BC3F1A06DB8A009F4A23 /* StackAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A211532619FC177D005F9A5F /* StackAllocator.cpp */; };
 		E086BC401A06DB8A009F4A23 /* DoubleBufferedAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E08D407A1A028CD700A90576 /* DoubleBufferedAllocator.cpp */; };
@@ -50,14 +50,14 @@
 		A211532719FC177D005F9A5F /* StackAllocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackAllocator.h; sourceTree = "<group>"; };
 		A2B623C319FC02C700AC3DEA /* SGL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SGL; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2B623C619FC02C800AC3DEA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		E019FBF31A06D3390051B069 /* HashMapTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HashMapTest.cpp; sourceTree = "<group>"; };
-		E019FBF41A06D3390051B069 /* HashMapTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashMapTest.h; sourceTree = "<group>"; };
+		E019FBF31A06D3390051B069 /* FixedHashMapTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FixedHashMapTest.cpp; sourceTree = "<group>"; };
+		E019FBF41A06D3390051B069 /* FixedHashMapTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedHashMapTest.h; sourceTree = "<group>"; };
 		E02012D119FFE1B900ADC2D0 /* PoolAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PoolAllocator.cpp; sourceTree = "<group>"; };
 		E02012D219FFE1B900ADC2D0 /* PoolAllocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoolAllocator.h; sourceTree = "<group>"; };
 		E02D9A9F1A14FEC200E66F99 /* Functions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Functions.h; sourceTree = "<group>"; };
 		E02D9AA01A14FECE00E66F99 /* Templates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Templates.h; sourceTree = "<group>"; };
 		E02D9AA21A14FFEB00E66F99 /* FixedArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedArray.h; sourceTree = "<group>"; };
-		E081A0B51A065583005FAB71 /* HashMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashMap.h; sourceTree = "<group>"; };
+		E081A0B51A065583005FAB71 /* FixedHashMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedHashMap.h; sourceTree = "<group>"; };
 		E086BC2C1A06D8DA009F4A23 /* gtest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gtest.framework; path = "../../../../Library/Developer/Xcode/DerivedData/gtest-aozboasjhpozmzcgyekzbnszlxxv/Build/Products/Debug/gtest.framework"; sourceTree = "<group>"; };
 		E086BC321A06DA8D009F4A23 /* UnitTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = UnitTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E086BC341A06DA8D009F4A23 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -121,8 +121,8 @@
 		E019FBF21A06D32C0051B069 /* tests */ = {
 			isa = PBXGroup;
 			children = (
-				E019FBF31A06D3390051B069 /* HashMapTest.cpp */,
-				E019FBF41A06D3390051B069 /* HashMapTest.h */,
+				E019FBF31A06D3390051B069 /* FixedHashMapTest.cpp */,
+				E019FBF41A06D3390051B069 /* FixedHashMapTest.h */,
 				E086BC421A06E04B009F4A23 /* LinkedListTest.cpp */,
 				E086BC431A06E04B009F4A23 /* LinkedListTest.h */,
 			);
@@ -167,7 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				E08D40801A03D79A00A90576 /* LinkedList.h */,
-				E081A0B51A065583005FAB71 /* HashMap.h */,
+				E081A0B51A065583005FAB71 /* FixedHashMap.h */,
 				E0DAFA371A10321600DBDF33 /* Queue.h */,
 				E02D9AA21A14FFEB00E66F99 /* FixedArray.h */,
 			);
@@ -269,7 +269,7 @@
 				E086BC3F1A06DB8A009F4A23 /* StackAllocator.cpp in Sources */,
 				E086BC401A06DB8A009F4A23 /* DoubleBufferedAllocator.cpp in Sources */,
 				E086BC411A06DB8A009F4A23 /* PoolAllocator.cpp in Sources */,
-				E086BC3A1A06DB40009F4A23 /* HashMapTest.cpp in Sources */,
+				E086BC3A1A06DB40009F4A23 /* FixedHashMapTest.cpp in Sources */,
 				E086BC351A06DA8D009F4A23 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
