@@ -8,12 +8,13 @@
 
 #include "PoolAllocator.h"
 #include <cmath>
+#include <memory>
 
 PoolAllocator::PoolAllocator(size_t num, size_t size): num(num),
                                                        size(size) {
     
     mem     = allocate_aligned(num*size, 16);
-    mems    = new uintptr_t[num];
+    mems    = std::unique_ptr<uintptr_t[]>(new uintptr_t[size]);
     
     for(int i=0; i<num; i++) {
         mems[i] = reinterpret_cast<uintptr_t>(mem) + i*size;
@@ -24,7 +25,6 @@ PoolAllocator::PoolAllocator(size_t num, size_t size): num(num),
 
 PoolAllocator::~PoolAllocator() {
     free_aligned(mem);
-    delete [] mems;
 }
 
 void* PoolAllocator::get_block() {

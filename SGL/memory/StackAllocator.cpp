@@ -14,7 +14,7 @@ StackAllocator::StackAllocator(uint32_t size_bytes): size(size_bytes) {
 }
 
 StackAllocator::~StackAllocator() {
-    free();
+    free_stack();
 }
 
 void* StackAllocator::alloc(uint32_t size_bytes) {
@@ -35,7 +35,7 @@ void StackAllocator::clear() {
     marker = reinterpret_cast<uintptr_t>(mem);
 }
 
-void StackAllocator::free() {
+void StackAllocator::free_stack() {
     free_aligned(mem);
     size = 0;
     marker = 0;

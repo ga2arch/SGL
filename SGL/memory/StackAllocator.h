@@ -22,7 +22,7 @@ public:
     ~StackAllocator();
     
     void* alloc(uint32_t size);
-    void free();
+    void free_stack();
     void free_to_marker(Marker marker);
     void clear();
     

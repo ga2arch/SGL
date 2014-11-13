@@ -24,7 +24,7 @@ public:
 
 private:
     void* mem;
-    uintptr_t* mems;
+    std::unique_ptr<uintptr_t[]> mems;
     
     int current;
 
