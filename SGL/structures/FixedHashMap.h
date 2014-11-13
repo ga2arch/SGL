@@ -80,37 +80,12 @@ namespace sgl { namespace structures {
         }
         
         V& get(const K& key) {
-            auto h = h_fun(key);
-            size_t i = h % SIZE;
-            
-            if (data_[i] == nullptr)
-                throw std::invalid_argument("Error: Key not found");
-            
-            if (data_[i]->key == key)
-                return data_[i]->value;
-            
-            for (int j=0; ;j++) {
-                auto b = i;
-                
-                i += j*j;
-                b -= j*j;
-                
-                if (i < SIZE && data_[i] && data_[i]->key == key) return data_[i]->value;
-                if (b < SIZE && data_[b] && data_[b]->key == key) return data_[b]->value;
-                
-                if (b >= SIZE && i >= SIZE)
-                    throw std::out_of_range("Error: key not found");
-            }
-            
-            throw std::invalid_argument("ERROR");
+            auto i = find(key);
+            return data_[i]->value;
         }
         
         V&& remove(const K& key) {
-            auto h = h_fun(key);
-            size_t i = h % SIZE;
-            
-            if (data_[i] == nullptr)
-                throw std::invalid_argument("Error: Key not found");
+            auto i = find(key);
             
             if (data_[i]->key == key) {
                 V&& v = std::move(data_[i]->value);
@@ -125,6 +100,30 @@ namespace sgl { namespace structures {
     private:
         std::hash<K> h_fun;
         std::unique_ptr<HashNode<K, V>> data_[SIZE];
+        
+        size_t find(const K& key) {
+            auto h = h_fun(key);
+            size_t i = h % SIZE;
+            
+            if (data_[i] == nullptr)
+                throw std::invalid_argument("Error: Key not found");
+            
+            if (data_[i]->key == key)
+                return i;
+            
+            for (int j=0; ;j++) {
+                auto b = i;
+                
+                i += j*j;
+                b -= j*j;
+                
+                if (i < SIZE && data_[i] && data_[i]->key == key) return i;
+                if (b < SIZE && data_[b] && data_[b]->key == key) return b;
+                
+                if (b >= SIZE && i >= SIZE)
+                    throw std::out_of_range("Error: Key not found");
+            }
+        }
     };
     
 }}
