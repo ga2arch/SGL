@@ -46,7 +46,7 @@ public:
         size_t i = h % SIZE;
         
         if (values[i].key == nullptr || *values[i].key == key) {
-            values[i] = std::move(*std::unique_ptr<HashNode<K,V>>(new HashNode<K,V>(&key, &value)));
+            values[i] = HashNode<K,V>(&key, &value);
         } else {
             
             auto fun =  [](const K* k1)
@@ -54,7 +54,7 @@ public:
             
             i = linear_search<K, V, decltype(fun), SIZE>(i, fun, values);
             
-            values[i] = std::move(*std::unique_ptr<HashNode<K,V>>(new HashNode<K,V>(&key, &value)));
+            values[i] = HashNode<K,V>(&key, &value);
         }
     }
     
