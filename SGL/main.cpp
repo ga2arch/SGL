@@ -62,19 +62,23 @@ using namespace std;
 int main(int argc, const char * argv[]) {
 //    FixedHashMap<int, Zap, 10> m;
 //    
-//    Zap z;
+//    Zap z(10);
 //    
 //    m.put(10, Zap(10));
-//    Zap z1 = m.pop(10);
+//    auto&& z1 = m.pop(10);
 //    
 //    cout << z1.v << endl;
     
     FixedArray<Zap, 10> a;
     
     Zap z2(10);
-    a.insert<0>(z2);
+    a.insert<0>(Zap(10));
     
-    cout << a.get<0>().v << endl;
+    auto&& l = a.remove<0>();
+    
+    cout << l.v << endl;
+    
+    //cout << a.get<0>().v << endl;
     
 }
 
