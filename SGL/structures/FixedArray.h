@@ -27,34 +27,36 @@ namespace sgl { namespace structures {
             data_ = std::unique_ptr<T[]>(new T[SIZE]{std::forward<Args>(args)...});
         };
         
-        FixedArray() {}
+        FixedArray() {
+            data_ = std::unique_ptr<T[]>(new T[SIZE]);
+        }
         
         template <size_t n>
-        typename std::enable_if<(n < SIZE), T>::type&
+        typename std::enable_if<(n < SIZE && n >= 0), T>::type&
         get() {
             return data_[n];
         }
         
         template <size_t n>
-        typename std::enable_if<(n < SIZE), T>::type&&
+        typename std::enable_if<(n < SIZE && n >= 0), T>::type
         remove() {
-            return std::move(data_[n]);
+            return data_[n];
         }
         
         template <size_t n>
-        void_t<typename std::enable_if<(n < SIZE), T>::type>
+        void_t<typename std::enable_if<(n < SIZE && n >= 0), T>::type>
         insert(T&& elem) {
             data_[n] = std::forward<T>(elem);
         }
         
         template <size_t n>
-        void_t<typename std::enable_if<(n < SIZE), T>::type>
+        void_t<typename std::enable_if<(n < SIZE && n >= 0), T>::type>
         insert(const T& elem) {
             data_[n] = elem;
         }
         
         template <size_t n, typename...Args>
-        void_t<typename std::enable_if<(n < SIZE), T>::type>
+        void_t<typename std::enable_if<(n < SIZE && n >= 0), T>::type>
         emplace(Args&&... args) {
             auto ptr = make_unique<T>(args...);
             data_[n] = std::move(ptr);

@@ -12,17 +12,17 @@
 #include "PoolAllocator.h"
 #include "LinkedList.h"
 #include "FixedHashMap.h"
+#include "FixedArray.h"
 #include "Queue.h"
 
 using namespace std;
 using namespace sgl::structures;
 
-class Zap: Link<Zap> {
+class Zap{
     
 public:
     int v;
 
-    
     Zap() {
         cout << "Costructor" << endl;
     };
@@ -44,15 +44,14 @@ public:
         
         v = o.v;
         return *this;
-    }
+    };
     
     Zap& operator=(Zap&& z) {
         cout << "Moved" << endl;
         
-        
         v = std::move(z.v);
         return *this;
-    }
+    };
 
 };
 
@@ -61,14 +60,22 @@ public:
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    FixedHashMap<int, Zap, 10> m;
+//    FixedHashMap<int, Zap, 10> m;
+//    
+//    Zap z;
+//    
+//    m.put(10, Zap(10));
+//    Zap z1 = m.pop(10);
+//    
+//    cout << z1.v << endl;
     
-    Zap z;
+    FixedArray<Zap, 10> a;
     
-    m.put(10, Zap(10));
-    z = m.pop(10);
+    Zap z2(10);
+    a.insert<0>(z2);
     
-    cout << z.v << endl;
+    cout << a.get<0>().v << endl;
+    
 }
 
 

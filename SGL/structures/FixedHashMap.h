@@ -24,7 +24,6 @@ namespace sgl { namespace structures {
         V value;
         
         HashNode() {};
-//        HashNode(K key_, V value_): key(key_), value(value_) {};
         HashNode(K&& key_, V&& value_): key(std::move(key_)), value(std::move(value_)) {};
 
         HashNode(HashNode<K,V>&& o): key(std::move(o.key)), value(std::move(o.value)) {};
