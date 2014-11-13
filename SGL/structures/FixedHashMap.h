@@ -84,7 +84,7 @@ namespace sgl { namespace structures {
         V pop(const K& key) {
             auto i = find(key);
             
-            auto v = std::forward<T>(data_[i]->value);
+            auto v = std::forward<V>(data_[i]->value);
             data_[i].reset();
             return v;
         }
