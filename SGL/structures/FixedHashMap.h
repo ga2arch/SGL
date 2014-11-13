@@ -15,8 +15,6 @@
 #include <exception>
 #include "Functions.h"
 
-//TODO: Handle collision
-
 namespace sgl { namespace structures {
 
     template <typename K, typename V>
