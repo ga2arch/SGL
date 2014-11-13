@@ -82,17 +82,18 @@ namespace sgl { namespace structures {
             return data_[i]->value;
         }
         
-        V remove(const K& key) {
+        V pop(const K& key) {
             auto i = find(key);
             
-            if (data_[i]->key == key) {
-                V v = std::move(data_[i]->value);
-                data_[i].reset();
-                return std::move(v);
-            }
+            V v = std::move(data_[i]->value);
+            data_[i].reset();
+            return std::move(v);
+        }
+        
+        void remove(const K& key) {
+            auto i = find(key);
             
-            throw std::invalid_argument("ERROR");
-            
+            data_[i].reset();
         }
         
     private:
