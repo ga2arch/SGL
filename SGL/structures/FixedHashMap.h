@@ -74,7 +74,7 @@ namespace sgl { namespace structures {
                     if (b < SIZE && !data_[b]) data_[b] = std::move(node);
                     
                     if (b >= SIZE && i >= SIZE)
-                        throw std::out_of_range("Error: key not found");
+                        throw std::out_of_range("Error: not enough space");
                 }
             }
         }
