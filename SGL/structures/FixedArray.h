@@ -38,9 +38,9 @@ namespace sgl { namespace structures {
         }
         
         template <size_t n>
-        typename std::enable_if<(n < SIZE && n >= 0), T>::type
+        typename std::enable_if<(n < SIZE && n >= 0), T>::type&&
         remove() {
-            return std::forward<T>(data_[n]);
+            return std::move(data_[n]);
         }
         
         template <size_t n>

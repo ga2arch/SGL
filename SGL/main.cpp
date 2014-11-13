@@ -60,14 +60,14 @@ public:
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-//    FixedHashMap<int, Zap, 10> m;
-//    
-//    Zap z(10);
-//    
-//    m.put(10, Zap(10));
-//    auto&& z1 = m.pop(10);
-//    
-//    cout << z1.v << endl;
+    FixedHashMap<int, unique_ptr<Zap>, 10> m;
+    
+    auto z = sgl::make_unique<Zap>(10);
+    
+    m.put(10, std::move(z));
+    auto z1 = m.pop(10);
+    
+    cout << z1->v << endl;
     
     FixedArray<Zap, 10> a;
     
