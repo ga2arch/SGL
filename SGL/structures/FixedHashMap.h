@@ -58,7 +58,7 @@ namespace sgl { namespace structures {
             auto h = h_fun(key);
             size_t i = h % SIZE;
             
-            if (data_[i] == nullptr || data_[i]->key == key)
+            if (!data_[i] || data_[i]->key == key)
                 data_[i] = std::move(node);
             
             else {
@@ -85,9 +85,9 @@ namespace sgl { namespace structures {
         V pop(const K& key) {
             auto i = find(key);
             
-            V v = std::move(data_[i]->value);
+            V v = std::forward<V>(data_[i]->value);
             data_[i].reset();
-            return std::move(v);
+            return v;
         }
         
         void remove(const K& key) {

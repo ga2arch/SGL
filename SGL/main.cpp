@@ -61,14 +61,14 @@ public:
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    FixedHashMap<int, std::unique_ptr<Zap>, 10> m;
+    FixedHashMap<int, Zap, 10> m;
     
-    std::unique_ptr<Zap> z;
+    Zap z;
     
-    m.put(10, std::move(sgl::make_unique<Zap>(10)));
+    m.put(10, Zap(10));
     z = m.pop(10);
     
-    cout << z->v << endl;
+    cout << z.v << endl;
 }
 
 

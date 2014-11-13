@@ -70,7 +70,7 @@ namespace sgl { namespace structures {
                 auto l = tail.prev;
                 remove(l);
                 
-                return std::move(*reinterpret_cast<T*>(l));
+                return *reinterpret_cast<T*>(l);
             
             } else if (size == 1) {
                 auto l = tail.prev;
@@ -79,7 +79,7 @@ namespace sgl { namespace structures {
                 
                 size--;
                 
-                return std::move(*reinterpret_cast<T*>(l));
+                return *reinterpret_cast<T*>(l);
                 
             } else
                 throw std::out_of_range("Error: The list is empty.");
