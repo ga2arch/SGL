@@ -55,13 +55,6 @@ namespace sgl { namespace structures {
             data_[n] = elem;
         }
         
-        template <size_t n, typename...Args>
-        void_t<typename std::enable_if<(n < SIZE && n >= 0), T>::type>
-        emplace(Args&&... args) {
-            auto ptr = make_unique<T>(args...);
-            data_[n] = std::move(ptr);
-        }
-        
     private:
         std::unique_ptr<T[]> data_;
     };

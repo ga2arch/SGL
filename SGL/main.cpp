@@ -75,8 +75,10 @@ int main(int argc, const char * argv[]) {
     a.insert<0>(Zap(10));
     
     auto&& l = a.remove<0>();
+    auto&& b = a.remove<0>();
     
     cout << l.v << endl;
+    cout << b.v << endl;
     
     //cout << a.get<0>().v << endl;
     
