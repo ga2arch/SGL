@@ -13,29 +13,33 @@
 #include <ostream>
 #include "Memory.h"
 
-class StackAllocator {
+namespace sgl { namespace memory {
+
+    class StackAllocator {
+        
+    public:
+        typedef uintptr_t Marker;
+        
+        explicit StackAllocator(uint32_t size);
+        ~StackAllocator();
+        
+        void* alloc(uint32_t size);
+        void free_stack();
+        void free_to_marker(Marker marker);
+        void clear();
+        
+        Marker get_marker();
+        
+        
+    private:
+        void* mem;
+        bool  open = true;
+        
+        Marker   marker;
+        uint32_t occupation;
+        uint32_t size;
+    };
     
-public:
-    typedef uintptr_t Marker;
-    
-    explicit StackAllocator(uint32_t size);
-    ~StackAllocator();
-    
-    void* alloc(uint32_t size);
-    void free_stack();
-    void free_to_marker(Marker marker);
-    void clear();
-    
-    Marker get_marker();
-    
-    
-private:
-    void* mem;
-    bool  open = true;
-    
-    Marker   marker;
-    uint32_t occupation;
-    uint32_t size;
-};
+}}
 
 #endif /* defined(__SGL__StackAllocator__) */

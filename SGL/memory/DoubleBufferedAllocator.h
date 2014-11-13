@@ -13,20 +13,24 @@
 #include <ostream>
 #include "StackAllocator.h"
 
-class DoubleBufferedAllocator {
+namespace sgl { namespace memory {
+
+    class DoubleBufferedAllocator {
+        
+    public:
+        explicit DoubleBufferedAllocator();
+        ~DoubleBufferedAllocator();
+        
+        void swap_buffers();
+        void clear_current();
+        void* alloc(uint32_t bytes);
+        
+    private:
+        uint32_t cursor_stack;
+        StackAllocator stacks[2];
+        
+    };
     
-public:
-    explicit DoubleBufferedAllocator();
-    ~DoubleBufferedAllocator();
-    
-    void swap_buffers();
-    void clear_current();
-    void* alloc(uint32_t bytes);
-    
-private:
-    uint32_t cursor_stack;
-    StackAllocator stacks[2];
-    
-};
+}}
 
 #endif /* defined(__SGL__DoubleBufferedAllocator__) */

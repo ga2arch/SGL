@@ -12,7 +12,10 @@
 #include <stdio.h>
 #include <ostream>
 
-void* allocate_aligned(size_t size_bytes, size_t alignment);
-void  free_aligned(void* mem);
+namespace sgl { namespace memory {
 
+    void* allocate_aligned(size_t size_bytes, size_t alignment);
+    void  free_aligned(void* mem);
+
+}}
 #endif /* defined(__SGL__Memory__) */

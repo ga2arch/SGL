@@ -14,6 +14,8 @@
 #include "HashMap.h"
 #include "Queue.h"
 
+using namespace sgl::structures;
+
 class Zap: Link<Zap> {
     
 public:
@@ -30,7 +32,7 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     
-    PoolAllocator pool(10, sizeof(Zap));
+    sgl::memory::PoolAllocator pool(10, sizeof(Zap));
     Queue<Zap> q(pool);
     
     Zap z1(10);

@@ -11,6 +11,7 @@
 		A211532819FC177D005F9A5F /* StackAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A211532619FC177D005F9A5F /* StackAllocator.cpp */; };
 		A2B623C719FC02C800AC3DEA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2B623C619FC02C800AC3DEA /* main.cpp */; };
 		E02012D319FFE1B900ADC2D0 /* PoolAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E02012D119FFE1B900ADC2D0 /* PoolAllocator.cpp */; };
+		E02D9AA31A14FFEB00E66F99 /* FixedArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E02D9AA11A14FFEB00E66F99 /* FixedArray.cpp */; };
 		E081A0B61A065583005FAB71 /* HashMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E081A0B41A065583005FAB71 /* HashMap.cpp */; };
 		E086BC351A06DA8D009F4A23 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E086BC341A06DA8D009F4A23 /* main.cpp */; };
 		E086BC391A06DAA9009F4A23 /* gtest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E086BC2C1A06D8DA009F4A23 /* gtest.framework */; };
@@ -58,6 +59,10 @@
 		E019FBF41A06D3390051B069 /* HashMapTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashMapTest.h; sourceTree = "<group>"; };
 		E02012D119FFE1B900ADC2D0 /* PoolAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PoolAllocator.cpp; sourceTree = "<group>"; };
 		E02012D219FFE1B900ADC2D0 /* PoolAllocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoolAllocator.h; sourceTree = "<group>"; };
+		E02D9A9F1A14FEC200E66F99 /* Functions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Functions.h; sourceTree = "<group>"; };
+		E02D9AA01A14FECE00E66F99 /* Templates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Templates.h; sourceTree = "<group>"; };
+		E02D9AA11A14FFEB00E66F99 /* FixedArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FixedArray.cpp; sourceTree = "<group>"; };
+		E02D9AA21A14FFEB00E66F99 /* FixedArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedArray.h; sourceTree = "<group>"; };
 		E081A0B41A065583005FAB71 /* HashMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HashMap.cpp; sourceTree = "<group>"; };
 		E081A0B51A065583005FAB71 /* HashMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashMap.h; sourceTree = "<group>"; };
 		E086BC2C1A06D8DA009F4A23 /* gtest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gtest.framework; path = "../../../../Library/Developer/Xcode/DerivedData/gtest-aozboasjhpozmzcgyekzbnszlxxv/Build/Products/Debug/gtest.framework"; sourceTree = "<group>"; };
@@ -114,6 +119,7 @@
 		A2B623C519FC02C700AC3DEA /* SGL */ = {
 			isa = PBXGroup;
 			children = (
+				E02D9A9E1A14FEB600E66F99 /* utils */,
 				E08D407E1A028DF300A90576 /* structures */,
 				E08D407D1A028DE500A90576 /* memory */,
 				A2B623C619FC02C800AC3DEA /* main.cpp */,
@@ -131,6 +137,15 @@
 			);
 			name = tests;
 			path = ../SGL/tests;
+			sourceTree = "<group>";
+		};
+		E02D9A9E1A14FEB600E66F99 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				E02D9A9F1A14FEC200E66F99 /* Functions.h */,
+				E02D9AA01A14FECE00E66F99 /* Templates.h */,
+			);
+			name = utils;
 			sourceTree = "<group>";
 		};
 		E086BC331A06DA8D009F4A23 /* UnitTest */ = {
@@ -166,6 +181,8 @@
 				E081A0B51A065583005FAB71 /* HashMap.h */,
 				E0DAFA361A10321600DBDF33 /* Queue.cpp */,
 				E0DAFA371A10321600DBDF33 /* Queue.h */,
+				E02D9AA11A14FFEB00E66F99 /* FixedArray.cpp */,
+				E02D9AA21A14FFEB00E66F99 /* FixedArray.h */,
 			);
 			name = structures;
 			path = SGL/structures;
@@ -252,6 +269,7 @@
 				A211532519FC16B7005F9A5F /* Memory.cpp in Sources */,
 				E02012D319FFE1B900ADC2D0 /* PoolAllocator.cpp in Sources */,
 				A211532819FC177D005F9A5F /* StackAllocator.cpp in Sources */,
+				E02D9AA31A14FFEB00E66F99 /* FixedArray.cpp in Sources */,
 				A2B623C719FC02C800AC3DEA /* main.cpp in Sources */,
 				E081A0B61A065583005FAB71 /* HashMap.cpp in Sources */,
 				E086BC461A06E4E8009F4A23 /* LinkedList.cpp in Sources */,

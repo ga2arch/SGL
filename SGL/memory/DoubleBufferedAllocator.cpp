@@ -8,19 +8,23 @@
 
 #include "DoubleBufferedAllocator.h"
 
-void DoubleBufferedAllocator::swap_buffers() {
-    cursor_stack = static_cast<uint32_t>(!cursor_stack);
-}
+namespace sgl { namespace memory {
 
-void DoubleBufferedAllocator::clear_current() {
-    stacks[cursor_stack].clear();
-}
+    void DoubleBufferedAllocator::swap_buffers() {
+        cursor_stack = static_cast<uint32_t>(!cursor_stack);
+    }
 
-void* DoubleBufferedAllocator::alloc(uint32_t bytes) {
-    return stacks[cursor_stack].alloc(bytes);
-}
+    void DoubleBufferedAllocator::clear_current() {
+        stacks[cursor_stack].clear();
+    }
 
-DoubleBufferedAllocator::~DoubleBufferedAllocator() {
-    stacks[0].free_stack();
-    stacks[1].free_stack();
-}
+    void* DoubleBufferedAllocator::alloc(uint32_t bytes) {
+        return stacks[cursor_stack].alloc(bytes);
+    }
+
+    DoubleBufferedAllocator::~DoubleBufferedAllocator() {
+        stacks[0].free_stack();
+        stacks[1].free_stack();
+    }
+
+}}

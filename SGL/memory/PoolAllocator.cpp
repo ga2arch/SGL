@@ -10,45 +10,48 @@
 #include <cmath>
 #include <memory>
 
-PoolAllocator::PoolAllocator(size_t num, size_t size): num(num),
-                                                       size(size) {
-    
-    mem     = allocate_aligned(num*size, 16);
-    mems    = std::unique_ptr<uintptr_t[]>(new uintptr_t[size]);
-    
-    for(int i=0; i<num; i++) {
-        mems[i] = reinterpret_cast<uintptr_t>(mem) + i*size;
-    }
-    
-    current = static_cast<int>(num-1);
-}
+namespace sgl { namespace memory {
 
-PoolAllocator::~PoolAllocator() {
-    free_aligned(mem);
-}
-
-void* PoolAllocator::get_block() {
-    if (current >= 0)
-        return reinterpret_cast<void*>(mems[current--]);
-    else
-        throw std::out_of_range("Error: No more free blocks available in the pool");
-}
-
-void PoolAllocator::free_block(void* block) {
-    auto m1 = reinterpret_cast<uintptr_t>(block);
-    auto m2 = reinterpret_cast<uintptr_t>(mem);
-    ptrdiff_t d = m1 - m2;
-    
-    if (d <= num*size) {
-        if (d % num == 0)
-            mems[++current] = m1;
-        else {
-            auto t = trunc(d / num);
-            auto m = (m2 + t*size);
-            mems[++current] = m;
+    PoolAllocator::PoolAllocator(size_t num, size_t size): num(num),
+                                                           size(size) {
+        
+        mem     = allocate_aligned(num*size, 16);
+        mems    = std::unique_ptr<uintptr_t[]>(new uintptr_t[size]);
+        
+        for(int i=0; i<num; i++) {
+            mems[i] = reinterpret_cast<uintptr_t>(mem) + i*size;
         }
+        
+        current = static_cast<int>(num-1);
     }
-    else
-        throw std::invalid_argument("Error: It's not a block of the pool, cannot free");
 
-}
+    PoolAllocator::~PoolAllocator() {
+        free_aligned(mem);
+    }
+
+    void* PoolAllocator::get_block() {
+        if (current >= 0)
+            return reinterpret_cast<void*>(mems[current--]);
+        else
+            throw std::out_of_range("Error: No more free blocks available in the pool");
+    }
+
+    void PoolAllocator::free_block(void* block) {
+        auto m1 = reinterpret_cast<uintptr_t>(block);
+        auto m2 = reinterpret_cast<uintptr_t>(mem);
+        ptrdiff_t d = m1 - m2;
+        
+        if (d <= num*size) {
+            if (d % num == 0)
+                mems[++current] = m1;
+            else {
+                auto t = trunc(d / num);
+                auto m = (m2 + t*size);
+                mems[++current] = m;
+            }
+        }
+        else
+            throw std::invalid_argument("Error: It's not a block of the pool, cannot free");
+    }
+
+}}

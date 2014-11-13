@@ -13,25 +13,28 @@
 #include <ostream>
 #include "Memory.h"
 
-class PoolAllocator {
-    
-public:
-    PoolAllocator(size_t num, size_t size);
-    ~PoolAllocator();
-    
-    void* get_block();
-    void free_block(void* block);
+namespace sgl { namespace memory {
 
-private:
-    void* mem;
-    std::unique_ptr<uintptr_t[]> mems;
-    
-    int current;
+    class PoolAllocator {
+        
+    public:
+        PoolAllocator(size_t num, size_t size);
+        ~PoolAllocator();
+        
+        void* get_block();
+        void free_block(void* block);
 
-    size_t num;
-    size_t size;
-    
-};
+    private:
+        void* mem;
+        std::unique_ptr<uintptr_t[]> mems;
+        
+        int current;
 
+        size_t num;
+        size_t size;
+        
+    };
+    
+}}
 
 #endif /* defined(__SGL__PoolAllocator__) */
