@@ -26,6 +26,7 @@ namespace sgl { namespace structures {
             list.push_back(reinterpret_cast<Link<T>*>(lk));
         }
         
+        
         void enqueue(T&& t) {
             auto lk = new (pool.get_block()) T(std::forward<T>(t));
             list.push_back(reinterpret_cast<Link<T>*>(lk));

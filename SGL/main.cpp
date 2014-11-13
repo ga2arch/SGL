@@ -74,14 +74,6 @@ int main(int argc, const char * argv[]) {
     Zap z2(10);
     a.insert<0>(Zap(10));
     
-    auto&& l = a.remove<0>();
-    auto&& b = a.remove<0>();
-    
-    cout << l.v << endl;
-    cout << b.v << endl;
-    
-    //cout << a.get<0>().v << endl;
-    
     sgl::memory::PoolAllocator pool(10, sizeof(Zap));
     Queue<Zap> q(pool);
     
