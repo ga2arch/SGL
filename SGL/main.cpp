@@ -51,7 +51,7 @@ int main(int argc, const char * argv[]) {
     
     FixedHashMap<int, std::string, 10> m;
     
-    m.put(10, std::string("ciao"));
+    m.put(10, std::move(std::string("ciao")));
     
     std::cout << m.get(10) << endl;
     

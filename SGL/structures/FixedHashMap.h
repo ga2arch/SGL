@@ -60,8 +60,22 @@ namespace sgl { namespace structures {
             auto h = h_fun(key);
             size_t i = h % SIZE;
             
-            if (data_[i] == nullptr || data_[i]->key == key) {
+            if (data_[i] == nullptr || data_[i]->key == key)
                 data_[i] = std::move(node);
+            
+            else {
+                for (int j=0; ;j++) {
+                    auto b = i;
+                    
+                    i += j*j;
+                    b -= j*j;
+                    
+                    if (i < SIZE && !data_[i]) data_[i] = std::move(node);
+                    if (b < SIZE && !data_[b]) data_[b] = std::move(node);
+                    
+                    if (b >= SIZE && i >= SIZE)
+                        throw std::out_of_range("Error: key not found");
+                }
             }
         }
         
@@ -74,6 +88,19 @@ namespace sgl { namespace structures {
             
             if (data_[i]->key == key)
                 return data_[i]->value;
+            
+            for (int j=0; ;j++) {
+                auto b = i;
+                
+                i += j*j;
+                b -= j*j;
+                
+                if (i < SIZE && data_[i] && data_[i]->key == key) return data_[i]->value;
+                if (b < SIZE && data_[b] && data_[b]->key == key) return data_[b]->value;
+                
+                if (b >= SIZE && i >= SIZE)
+                    throw std::out_of_range("Error: key not found");
+            }
             
             throw std::invalid_argument("ERROR");
         }
@@ -98,8 +125,6 @@ namespace sgl { namespace structures {
     private:
         std::hash<K> h_fun;
         std::unique_ptr<HashNode<K, V>> data_[SIZE];
-        
-        
     };
     
 }}
