@@ -65,7 +65,7 @@ namespace sgl { namespace structures {
             size++;
         }
         
-        T&& remove_last() {
+        T remove_last() {
             if (size > 1) {
                 auto l = tail.prev;
                 remove(l);

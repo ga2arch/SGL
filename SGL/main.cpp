@@ -49,10 +49,12 @@ int main(int argc, const char * argv[]) {
 //    
     //cout << q.dequeue().v << endl;
     
-    FixedHashMap<int, std::string, 10> m;
+    FixedHashMap<int, std::unique_ptr<Zap>, 10> m;
     
-    m.put(10, std::move(std::string("ciao")));
-    std::cout << m.remove(10) << endl;
+    m.put(10, sgl::make_unique<Zap>(10));
+    
+    
+    std::cout << m.remove(10)->v << endl;
     
 }
 

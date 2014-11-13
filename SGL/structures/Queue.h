@@ -37,7 +37,7 @@ namespace sgl { namespace structures {
             list.push_back(reinterpret_cast<Link<T>*>(lk));
         }
         
-        T&& dequeue() {
+        T dequeue() {
             return list.remove_last();
         };
         

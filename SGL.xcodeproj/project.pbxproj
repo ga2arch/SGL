@@ -168,8 +168,8 @@
 			children = (
 				E08D40801A03D79A00A90576 /* LinkedList.h */,
 				E081A0B51A065583005FAB71 /* FixedHashMap.h */,
-				E0DAFA371A10321600DBDF33 /* Queue.h */,
 				E02D9AA21A14FFEB00E66F99 /* FixedArray.h */,
+				E0DAFA371A10321600DBDF33 /* Queue.h */,
 			);
 			name = structures;
 			path = SGL/structures;
