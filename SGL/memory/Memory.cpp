@@ -19,7 +19,7 @@ namespace sgl { namespace memory {
         
         size_t expandedSize_bytes = size_bytes + alignment;
         
-        uintptr_t raw_address = reinterpret_cast<uintptr_t>(new char[expandedSize_bytes]);
+        uintptr_t raw_address = reinterpret_cast<uintptr_t>(malloc(expandedSize_bytes));
         size_t mask = (alignment - 1);
         uintptr_t misalignment = (raw_address & mask);
         ptrdiff_t adjustement = alignment - misalignment;

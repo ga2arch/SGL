@@ -57,6 +57,7 @@
 		E02D9A9F1A14FEC200E66F99 /* Functions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Functions.h; sourceTree = "<group>"; };
 		E02D9AA01A14FECE00E66F99 /* Templates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Templates.h; sourceTree = "<group>"; };
 		E02D9AA21A14FFEB00E66F99 /* FixedArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedArray.h; sourceTree = "<group>"; };
+		E056C6A11A159A550066864F /* ProducerConsumerQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProducerConsumerQueue.h; sourceTree = "<group>"; };
 		E081A0B51A065583005FAB71 /* FixedHashMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedHashMap.h; sourceTree = "<group>"; };
 		E086BC2C1A06D8DA009F4A23 /* gtest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gtest.framework; path = "../../../../Library/Developer/Xcode/DerivedData/gtest-aozboasjhpozmzcgyekzbnszlxxv/Build/Products/Debug/gtest.framework"; sourceTree = "<group>"; };
 		E086BC321A06DA8D009F4A23 /* UnitTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = UnitTest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,6 +171,7 @@
 				E081A0B51A065583005FAB71 /* FixedHashMap.h */,
 				E02D9AA21A14FFEB00E66F99 /* FixedArray.h */,
 				E0DAFA371A10321600DBDF33 /* Queue.h */,
+				E056C6A11A159A550066864F /* ProducerConsumerQueue.h */,
 			);
 			name = structures;
 			path = SGL/structures;

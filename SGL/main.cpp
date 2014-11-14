@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include <thread>
 #include "Memory.h"
 #include "StackAllocator.h"
 #include "PoolAllocator.h"
@@ -14,6 +15,7 @@
 #include "FixedHashMap.h"
 #include "FixedArray.h"
 #include "Queue.h"
+#include "ProducerConsumerQueue.h"
 
 using namespace std;
 using namespace sgl::structures;
@@ -60,28 +62,39 @@ public:
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    FixedHashMap<int, unique_ptr<Zap>, 10> m;
+//    FixedHashMap<int, unique_ptr<Zap>, 10> m;
+//    
+//    auto z = sgl::make_unique<Zap>(10);
+//    
+//    m.put(10, std::move(z));
+//    auto z1 = m.pop(10);
+//    
+//    cout << z1->v << endl;
+//    
+//    FixedArray<Zap, 10> a;
+//    
+//    Zap z2(10);
+//    a.insert<0>(Zap(10));
+//    auto& b = a.get<0>();
+//    
+//    b.v = 2;
+//    
+//    cout << a.get<0>().v << endl;
+//    
+//    sgl::memory::PoolAllocator pool(10, sizeof(Zap));
+//    Queue<Zap> q(pool);
+//    
+//    q.emplace(10);
+//    
+//    auto&& z3 = q.dequeue();
+//    
+//    cout << z3.v << endl;
     
-    auto z = sgl::make_unique<Zap>(10);
+    ProducerConsumerQueue<int> t;
     
-    m.put(10, std::move(z));
-    auto z1 = m.pop(10);
+
     
-    cout << z1->v << endl;
-    
-    FixedArray<Zap, 10> a;
-    
-    Zap z2(10);
-    a.insert<0>(Zap(10));
-    
-    sgl::memory::PoolAllocator pool(10, sizeof(Zap));
-    Queue<Zap> q(pool);
-    
-    q.emplace(10);
-    
-    auto&& z3 = q.dequeue();
-    
-    cout << z3.v << endl;
+    cout << t.dequeue() << endl;
     
 }
 
