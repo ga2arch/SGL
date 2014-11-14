@@ -14,7 +14,7 @@ class ProducerConsumerQueue {
     
 public:
     ProducerConsumerQueue(size_t num):
-            mem(static_cast<T*>(malloc(sizeof(T) * num))),
+            mem(static_cast<T*>(std::malloc(sizeof(T) * num))),
             size(num) {
         prod_index = cons_index = 0;
     }
@@ -50,7 +50,7 @@ public:
         for (int i=cons_index; i < prod_index; i++) {
             mem[i].~T();
         }
-        free(mem);
+        std::free(mem);
     }
     
 private:
