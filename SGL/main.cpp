@@ -90,12 +90,19 @@ int main(int argc, const char * argv[]) {
 //    
 //    cout << z3.v << endl;
     
-    ProducerConsumerQueue<int> t;
+    ProducerConsumerQueue<Zap> t;
     
-
+    Zap* zap = new Zap(10);
     
-    cout << t.dequeue() << endl;
+    t.enqueue(zap);
+    t.enqueue(new Zap(12));
     
+    Zap out;
+    
+    auto r = t.dequeue(out);
+    r = t.dequeue(out);
+    
+    cout << out.v << endl;
 }
 
 

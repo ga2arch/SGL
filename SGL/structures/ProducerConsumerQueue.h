@@ -14,53 +14,43 @@ class ProducerConsumerQueue {
     
 public:
     ProducerConsumerQueue() {
+        first = last = new Node(nullptr);
         producer_lock = consumer_lock = false;
     }
 
-    void enqueue(T t) {
+    bool enqueue(T* t) {
         auto node = new Node(t);
         
-        while (consumer_lock.exchange(true)) {}
+        while (producer_lock.exchange(true)) {}
         
-        if (head.next) {
-            auto s = head.next;
-            head.next = node;
-            node->next = s;
-            s->prev = node;
-            
-        } else {
-            head.next = node;
-            tail.prev = node;
-        }
+        last->next = node;
+        last = node;
         
-        consumer_lock = false;
-
+        producer_lock = false;
+        return true;
     }
     
-    T dequeue() {
-        while (producer_lock.exchange(true)) {}
+    bool dequeue(T& out) {
+        while (consumer_lock.exchange(true)) {}
 
-        if (tail.prev) {
-            auto node = tail.prev;
-            auto val = node->elem;
+        if (first->next != nullptr) {
+            auto old = first;
+            first = first->next;
+            auto value = first->value;
+            first->value = nullptr;
+            consumer_lock = false;
             
-            tail.prev = node->prev;
-            if (tail.prev)
-                tail.prev->next = nullptr;
-            else
-                head.next = nullptr;
+            out = *value;
+            delete value;
+            delete old;
             
-            producer_lock = false;
-            free(node);
-            
-            return val;
-        }
-        throw ("Error");
+            return true;
+        } else
+            return false;
     }
     
     ~ProducerConsumerQueue() {
-        auto node = head.next;
-        
+        auto node = first->next;
         while (node) {
             auto temp = node->next;
             free(node);
@@ -72,14 +62,13 @@ private:
     struct Node {
         Node* next;
         Node* prev;
-        T elem;
+        T* value;
         
-        Node(): next(nullptr) {};
-        Node(T elem): elem(elem) {};
+        Node(T* value): value(value) {};
     };
     
-    Node head;
-    Node tail;
+    Node* first;
+    Node* last;
     
     std::atomic<bool> producer_lock;
     std::atomic<bool> consumer_lock;
