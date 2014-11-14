@@ -13,7 +13,9 @@ template <typename T>
 class ProducerConsumerQueue {
     
 public:
-    ProducerConsumerQueue(size_t num): mem(static_cast<T*>(malloc(sizeof(T) * num))), size(num) {
+    ProducerConsumerQueue(size_t num):
+            mem(static_cast<T*>(malloc(sizeof(T) * num))),
+            size(num) {
         prod_index = cons_index = 0;
     }
     
