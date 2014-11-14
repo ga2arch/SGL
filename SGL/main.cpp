@@ -38,6 +38,10 @@ public:
         cout << "Costructor" << endl;
     };
     
+    ~Zap() {
+        cout << "Decostructor" << endl;
+    }
+    
     Zap(int v_): v(v_) {
         cout << "Costructor" << endl;
     };
@@ -151,8 +155,8 @@ int main(int argc, const char * argv[]) {
     ProducerConsumerQueue<Zap> q(10);
     
     q.enqueue(10);
+    q.enqueue(20);
     Zap z;
-    
     
     cout << q.try_dequeue(z) << endl;
     cout << z.v << endl;

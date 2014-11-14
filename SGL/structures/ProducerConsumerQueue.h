@@ -38,12 +38,16 @@ public:
         if (read_index == write_index) return false;
         
         output = std::move(mem[read_index]);
+        mem[read_index].~T();
         cons_index.store(read_index+1, std::memory_order_relaxed);
         
         return true;
     }
     
     ~ProducerConsumerQueue() {
+        for (int i=cons_index; i < prod_index; i++) {
+            mem[i].~T();
+        }
         free(mem);
     }
     
