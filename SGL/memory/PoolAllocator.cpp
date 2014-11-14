@@ -16,13 +16,13 @@ namespace sgl { namespace memory {
                                                            size(size) {
         
         mem     = allocate_aligned(num*size, 16);
-        mems    = std::unique_ptr<uintptr_t[]>(new uintptr_t[size]);
+        mems    = std::unique_ptr<uintptr_t[]>(new uintptr_t[num]);
         
         for(int i=0; i<num; i++) {
             mems[i] = reinterpret_cast<uintptr_t>(mem) + i*size;
         }
         
-        current = static_cast<int>(num-1);
+        current = 0;
     }
 
     PoolAllocator::~PoolAllocator() {
@@ -30,8 +30,8 @@ namespace sgl { namespace memory {
     }
 
     void* PoolAllocator::get_block() {
-        if (current >= 0)
-            return reinterpret_cast<void*>(mems[current--]);
+        if (current < size)
+            return reinterpret_cast<void*>(mems[current++]);
         else
             throw std::out_of_range("Error: No more free blocks available in the pool");
     }

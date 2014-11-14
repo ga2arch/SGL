@@ -13,67 +13,48 @@ template <typename T>
 class ProducerConsumerQueue {
     
 public:
-    ProducerConsumerQueue() {
-        first = last = new Node(nullptr);
-        producer_lock = consumer_lock = false;
+    ProducerConsumerQueue(size_t num): mem(static_cast<T*>(malloc(sizeof(T) * num))), size(num) {
+        prod_index = cons_index = 0;
     }
+    
+    template <typename...Args>
+    bool enqueue(Args&&... args) {
+        
+        auto write_index = prod_index.load(std::memory_order_relaxed);
+        
+        if (write_index == size) return false;
+        
+        new (&mem[prod_index]) T(std::forward<Args>(args)...);
+        prod_index.store(write_index+1, std::memory_order_release);
 
-    bool enqueue(T* t) {
-        auto node = new Node(t);
-        
-        while (producer_lock.exchange(true)) {}
-        
-        last->next = node;
-        last = node;
-        
-        producer_lock = false;
         return true;
     }
     
-    bool dequeue(T& out) {
-        while (consumer_lock.exchange(true)) {}
-
-        if (first->next != nullptr) {
-            auto old = first;
-            first = first->next;
-            auto value = first->value;
-            first->value = nullptr;
-            consumer_lock = false;
-            
-            out = *value;
-            delete value;
-            delete old;
-            
-            return true;
-        } else
-            return false;
+    bool try_dequeue(T& output) {
+        
+        auto read_index = cons_index.load(std::memory_order_relaxed);
+        auto write_index = prod_index.load(std::memory_order_acquire);
+        
+        if (read_index == write_index) return false;
+        
+        output = std::move(mem[read_index]);
+        cons_index.store(read_index+1, std::memory_order_relaxed);
+        
+        return true;
     }
     
     ~ProducerConsumerQueue() {
-        auto node = first->next;
-        while (node) {
-            auto temp = node->next;
-            free(node);
-            node = temp;
-        }
+        free(mem);
     }
     
 private:
-    struct Node {
-        Node* next;
-        Node* prev;
-        T* value;
-        
-        Node(T* value): value(value) {};
-    };
+    T* mem;
     
-    Node* first;
-    Node* last;
+    alignas(64) std::atomic<int> prod_index;
+    alignas(64) std::atomic<int> cons_index;
     
-    std::atomic<bool> producer_lock;
-    std::atomic<bool> consumer_lock;
-    
-    size_t size = 0;
+    alignas(64) size_t size = 0;
 };
+
 
 #endif

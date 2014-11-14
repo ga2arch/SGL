@@ -24,11 +24,10 @@ namespace sgl { namespace memory {
         void* get_block();
         void free_block(void* block);
 
-    private:
         void* mem;
         std::unique_ptr<uintptr_t[]> mems;
-        
-        int current;
+
+        size_t current;
 
         size_t num;
         size_t size;

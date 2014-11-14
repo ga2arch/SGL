@@ -15,7 +15,16 @@
 #include "FixedHashMap.h"
 #include "FixedArray.h"
 #include "Queue.h"
+#include "Functions.h"
 #include "ProducerConsumerQueue.h"
+
+#include <iostream>
+#include <iomanip>
+#include <numeric>		// For std::accumulate
+#include <algorithm>
+#include <random>
+#include <chrono>
+#include <ctime>
 
 using namespace std;
 using namespace sgl::structures;
@@ -57,7 +66,27 @@ public:
 
 };
 
+struct Zap2 {
+    int v;
+    
+    Zap2() {};
+    Zap2(int v_): v(v_) {};
+};
 
+template<typename F, typename ...Args>
+typename std::chrono::nanoseconds::rep execution(F func, Args&&... args) {
+    auto start = std::chrono::high_resolution_clock::now();
+    
+    // Now call the function with all the parameters you need.
+    func(std::forward<Args>(args)...);
+    
+    auto duration =
+    std::chrono::
+    duration_cast<std::chrono::nanoseconds>(std::chrono::
+                         high_resolution_clock::now() - start);
+    
+    return duration.count();
+}
 
 using namespace std;
 
@@ -90,19 +119,44 @@ int main(int argc, const char * argv[]) {
 //    
 //    cout << z3.v << endl;
     
-    ProducerConsumerQueue<Zap> t;
+//     cout << execution(([]() {
+//              volatile int forceNoOptimizeDummy;
+//        const size_t MAX = 300 * 1000;
+//
+//    ProducerConsumerQueue<int> q(MAX);
+//    
+//        int element = -1;
+//        int* n = new int(10);
+//
+//    std::thread producer([&]() {
+//        size_t num = 0;
+//        for (size_t i = 0; i != MAX; ++i) {
+//            q.enqueue(10);
+//            ++num;
+//        }
+//    });
+//    
+//        std::thread consumer([&]() {
+//            for (size_t i = 0; i != MAX; ++i) {
+//                q.try_dequeue(element);
+//            }
+//        });
+//        
+//    producer.join();
+//    consumer.join();
+//    forceNoOptimizeDummy = (bool)(q.try_dequeue(element));
+//
+//    }));
+
+    ProducerConsumerQueue<Zap> q(10);
     
-    Zap* zap = new Zap(10);
+    q.enqueue(10);
+    Zap z;
     
-    t.enqueue(zap);
-    t.enqueue(new Zap(12));
     
-    Zap out;
+    cout << q.try_dequeue(z) << endl;
+    cout << z.v << endl;
     
-    auto r = t.dequeue(out);
-    r = t.dequeue(out);
-    
-    cout << out.v << endl;
 }
 
 
