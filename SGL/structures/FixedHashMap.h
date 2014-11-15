@@ -101,14 +101,14 @@ namespace sgl { namespace structures {
             auto i = find(key);
             
             auto v = std::forward<V>(data_[i]->value);
-            data_[i].reset();
+            data_[i] = nullptr;
             return v;
         }
         
         void remove(const K& key) {
             auto i = find(key);
             
-            data_[i].reset();
+            data_[i] = nullptr;
         }
         
     private:
