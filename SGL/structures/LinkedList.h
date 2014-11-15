@@ -65,24 +65,29 @@ namespace sgl { namespace structures {
             size++;
         }
         
-        T&& remove_last() {
-            if (size > 1) {
-                auto l = tail.prev;
-                remove(l);
-                
-                return std::move(*reinterpret_cast<T*>(l));
-            
-            } else if (size == 1) {
-                auto l = tail.prev;
-                head.next = nullptr;
-                tail.prev = nullptr;
+        T&& pop() {
+            if (head.next) {
+                auto lk = head.next;
+                head.next = lk->next;
+                head.prev = nullptr;
                 
                 size--;
+                return std::move(*reinterpret_cast<T*>(lk));
+            } else {
+                throw std::out_of_range("Error: The list is empty");
+            }
+        }
+        
+        T&& remove_last() {
+            if (tail.prev) {
+                auto lk = tail.prev;
+                tail.prev = lk->prev;
                 
-                return std::move(*reinterpret_cast<T*>(l));
-                
-            } else
-                throw std::out_of_range("Error: The list is empty.");
+                size--;
+                return std::move(*reinterpret_cast<T*>(lk));
+            } else {
+                throw std::out_of_range("Error: The list is empty");
+            }
         }
         
         void remove(Link<T>* lk) {

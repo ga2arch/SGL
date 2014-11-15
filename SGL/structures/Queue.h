@@ -19,7 +19,7 @@ namespace sgl { namespace structures {
 
     template <typename T,
               class Allocator = Linear<T>,
-              typename = typename std::enable_if< std::is_base_of<Link<T>, T>::value, T >::type>
+              typename = typename std::enable_if< std::is_base_of<Link<T>, T>::value, T>::type>
     class Queue {
         
     public:
