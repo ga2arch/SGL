@@ -79,7 +79,7 @@ int main(int argc, const char * argv[]) {
     m.put(10, Zap(10));
     m.put(20, Zap(39));
     
-    //cout << m.get(10).v << endl;
+    cout << m.get(20).v << endl;
 }
 
 
