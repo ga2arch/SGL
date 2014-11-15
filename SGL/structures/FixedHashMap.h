@@ -14,10 +14,14 @@
 #include <utility>
 #include <exception>
 #include "Functions.h"
+#include "Allocator.h"
+#include <cassert>
+
+using namespace sgl::memory;
 
 namespace sgl { namespace structures {
 
-    template <typename K, typename V>
+    template <typename K, typename V >
     struct HashNode {
         
         K key;
@@ -25,7 +29,7 @@ namespace sgl { namespace structures {
         
         HashNode() {};
         HashNode(K&& key_, V&& value_): key(std::move(key_)), value(std::move(value_)) {};
-
+        
         HashNode(HashNode<K,V>&& o): key(std::move(o.key)), value(std::move(o.value)) {};
         HashNode(const HashNode<K,V>& o): key(o.key), value(o.value) {};
         
@@ -43,16 +47,20 @@ namespace sgl { namespace structures {
             return *this;
         }
     };
-    
-    template <typename K, typename V, size_t SIZE>
+     
+    template <typename K,
+              typename V,
+              size_t SIZE,
+              class Allocator = Linear<HashNode<K, V>>>
     class FixedHashMap {
         
     public:
         FixedHashMap() {};
         
         void put(K key, V value) {
-            auto node = make_unique<HashNode<K,V>>(std::move(key),
-                                                   std::move(value));
+            void* mem;
+            assert(allocator.alloc(mem));
+            auto node = std::unique_ptr<HashNode<K,V>>(new HashNode<K,V>(std::move(key),std::move(value)));
 
             auto h = h_fun(key);
             size_t i = h % SIZE;
@@ -96,6 +104,7 @@ namespace sgl { namespace structures {
         }
         
     private:
+        Allocator allocator;
         std::hash<K> h_fun;
         std::unique_ptr<HashNode<K, V>> data_[SIZE];
         
