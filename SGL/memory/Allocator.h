@@ -21,11 +21,11 @@ namespace sgl { namespace memory {
         Pool(): mem(allocate_aligned(NUM*SIZE, 16)) {};
         ~Pool() { free_aligned(mem); };
 
-        bool alloc(void*& output) {
+        bool alloc(void*& ptr) {
             if (used == SIZE) return false;
             
-            auto ptr = reinterpret_cast<uintptr_t>(mem) + used*SIZE;
-            output = std::move(reinterpret_cast<void*>(ptr));
+            auto address = reinterpret_cast<uintptr_t>(mem) + used*SIZE;
+            ptr = std::move(reinterpret_cast<void*>(address));
             used++;
             return true;
         }
@@ -36,7 +36,7 @@ namespace sgl { namespace memory {
         
     };
     
-    template <size_t SIZE>
+    template <size_t SIZE, typename T = unsigned char>
     class Stack {
         
     public:
@@ -49,6 +49,13 @@ namespace sgl { namespace memory {
             if (current == SIZE) return false;
             
             ptr = mem[current++] = allocate_aligned(bytes, 16);
+            return true;
+        }
+        
+        bool alloc(void*& ptr) {
+            if (current == SIZE) return false;
+            
+            ptr = mem[current++] = allocate_aligned(sizeof(T), 16);
             return true;
         }
         
@@ -73,6 +80,16 @@ namespace sgl { namespace memory {
         
     };
 
+    template <typename T>
+    class Linear {
+        
+    public:
+        bool alloc(void*& ptr) {
+            ptr = allocate_aligned(sizeof(T), 16);
+            return true;
+        };
+    };
+    
     template <class Type>
         class Allocator: public Type {
         

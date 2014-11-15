@@ -74,7 +74,7 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     
-    Queue<Zap, 10> q;
+    Queue<Zap> q;
     
     q.enqueue(10);
     

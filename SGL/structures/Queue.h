@@ -17,7 +17,9 @@ using namespace sgl::memory;
 
 namespace sgl { namespace structures {
 
-    template <typename T, size_t SIZE, class Allocator = Allocator<Pool<SIZE, sizeof(T)>>>
+    template <typename T,
+              class Allocator = Linear<T>,
+              typename = typename std::enable_if< std::is_base_of<Link<T>, T>::value, T >::type>
     class Queue {
         
     public:
