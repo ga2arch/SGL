@@ -22,7 +22,7 @@ namespace sgl { namespace memory {
         ~Pool() { free_aligned(mem); };
         
         bool alloc(void*& ptr) {
-            if (used == SIZE) return false;
+            if (used == NUM) return false;
             
             auto address = reinterpret_cast<uintptr_t>(mem) + used*SIZE;
             ptr = std::move(reinterpret_cast<void*>(address));

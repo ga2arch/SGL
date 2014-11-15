@@ -24,6 +24,7 @@
 #include <random>
 #include <chrono>
 #include <ctime>
+#include <cassert>
 
 using namespace std;
 using namespace sgl::structures;
@@ -74,12 +75,12 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     
-    FixedHashMap<int, Zap, 10, Linear<Zap>> m;
+    Queue<Zap, Pool<1, sizeof(Zap)>> q;
     
-    m.put(10, Zap(10));
-    m.put(20, Zap(39));
+    assert(q.enqueue(10));
+    assert(q.enqueue(10));
+    assert(q.enqueue(10));
     
-    cout << m.get(20).v << endl;
 }
 
 

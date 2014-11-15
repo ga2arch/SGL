@@ -58,10 +58,11 @@ namespace sgl { namespace structures {
         FixedHashMap() {};
         ~FixedHashMap() {
             for (auto& node: data_) {
-                if (!node) continue;
-                reinterpret_cast<HashNode<K, V>*>(node)->~HashNode<K, V>();
-                auto ptr = reinterpret_cast<void*>(node);
-                allocator.dealloc(ptr);
+                if (node) {
+                    reinterpret_cast<HashNode<K, V>*>(node)->~HashNode<K, V>();
+                    auto ptr = reinterpret_cast<void*>(node);
+                    allocator.dealloc(ptr);
+                }
             }
         }
         
@@ -107,7 +108,6 @@ namespace sgl { namespace structures {
         
         void remove(const K& key) {
             auto i = find(key);
-            
             data_[i] = nullptr;
         }
         
