@@ -74,10 +74,10 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     
-    FixedHashMap<int, int, 10, Pool<10, sizeof(int)>> m;
+    Queue<Zap> q;
     
-    m.put(10, 10);
-    cout << m.get(10) << endl;
+    q.enqueue(10);
+    
 }
 
 

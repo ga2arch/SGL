@@ -24,6 +24,15 @@ namespace sgl { namespace structures {
         
     public:
         explicit Queue() {}
+        ~Queue() {
+            auto node = list.head.next;
+            while(node) {
+                auto temp = node->next;
+                auto ptr = reinterpret_cast<void*>(node);
+                allocator.dealloc(ptr);
+                node = temp;
+            }
+        }
         
         template <typename...Args>
         bool enqueue(Args&&...args) {
