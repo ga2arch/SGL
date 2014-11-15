@@ -13,14 +13,14 @@
 #include "Memory.h"
 
 namespace sgl { namespace memory {
-
+    
     template <size_t NUM, size_t SIZE>
     class Pool {
         
     public:
         Pool(): mem(allocate_aligned(NUM*SIZE, 16)) {};
         ~Pool() { free_aligned(mem); };
-
+        
         bool alloc(void*& ptr) {
             if (used == SIZE) return false;
             
@@ -29,6 +29,8 @@ namespace sgl { namespace memory {
             used++;
             return true;
         }
+        
+        void dealloc(void*& ptr) {};
         
     private:
         void* mem;
@@ -73,13 +75,15 @@ namespace sgl { namespace memory {
             return current;
         }
         
+        void dealloc(void*& ptr) { };
+        
     private:
         void* mem[SIZE];
         
         size_t current = 0;
         
     };
-
+    
     template <typename T>
     class Linear {
         
@@ -88,10 +92,14 @@ namespace sgl { namespace memory {
             ptr = allocate_aligned(sizeof(T), 16);
             return true;
         };
+        
+        void dealloc(void*& ptr) {
+            free_aligned(ptr);
+        };
     };
     
     template <class Type>
-        class Allocator: public Type {
+    class Allocator: public Type {
         
     public:
         Allocator(): Type() {};
@@ -101,7 +109,7 @@ namespace sgl { namespace memory {
             Type& allocator = *this;
             return allocator.alloc(bytes, mem);
         };
-         
+        
         // Stack
         bool alloc(void*& mem) {
             Type& allocator = *this;
@@ -112,10 +120,16 @@ namespace sgl { namespace memory {
             Type& allocator = *this;
             return allocator.get_marker();
         };
-            
+        
         bool free_to_marker(size_t m) {
             Type& allocator = *this;
             return allocator.free_to_marker(m);
+        }
+        
+        //
+        void dealloc(void*& ptr) {
+            Type& allocator = *this;
+            allocator.dealloc(ptr);
         }
         
     };

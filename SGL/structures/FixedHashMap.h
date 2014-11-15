@@ -56,18 +56,24 @@ namespace sgl { namespace structures {
         
     public:
         FixedHashMap() {};
+        ~FixedHashMap() {
+            for (auto& node: data_) {
+                auto ptr = reinterpret_cast<void*>(node);
+                allocator.dealloc(ptr);
+            }
+        }
         
         void put(K key, V value) {
             void* mem;
             assert(allocator.alloc(mem));
-            auto node = std::unique_ptr<HashNode<K,V>>(new HashNode<K,V>(std::move(key),std::move(value)));
-
+            
+            auto node = new (mem) HashNode<K,V>(std::move(key),std::move(value));
+            
             auto h = h_fun(key);
             size_t i = h % SIZE;
             
             if (!data_[i] || data_[i]->key == key)
                 data_[i] = std::move(node);
-            
             else {
                 for (int j=0; ;j++) {
                     auto b = i;
@@ -106,7 +112,7 @@ namespace sgl { namespace structures {
     private:
         Allocator allocator;
         std::hash<K> h_fun;
-        std::unique_ptr<HashNode<K, V>> data_[SIZE];
+        HashNode<K, V>* data_[SIZE] = {nullptr};
         
         size_t find(const K& key) {
             auto h = h_fun(key);
