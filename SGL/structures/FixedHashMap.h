@@ -51,20 +51,12 @@ namespace sgl { namespace structures {
     template <typename K,
               typename V,
               size_t SIZE,
-              class Allocator = Linear<HashNode<K, V>>>
+              class Allocator = List<HashNode<K, V>>>
     class FixedHashMap {
         
     public:
         FixedHashMap() {};
-        ~FixedHashMap() {
-            for (auto& node: data_) {
-                if (node) {
-                    reinterpret_cast<HashNode<K, V>*>(node)->~HashNode<K, V>();
-                    auto ptr = reinterpret_cast<void*>(node);
-                    allocator.dealloc(ptr);
-                }
-            }
-        }
+        ~FixedHashMap() {}
         
         void put(K key, V value) {
             void* mem;

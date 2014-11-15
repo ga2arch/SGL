@@ -30,72 +30,47 @@ namespace sgl { namespace memory {
             return true;
         }
         
-        void dealloc(void*& ptr) {};
-        
     private:
         void* mem;
         size_t used = 0;
         
     };
     
-    template <size_t SIZE, typename T = unsigned char>
-    class Stack {
+    template <typename T = unsigned char>
+    class List {
         
     public:
-        ~Stack() {
-            for (int i=0; i < current; i++)
-                free_aligned(mem[i]);
-        }
-        
-        bool alloc(size_t bytes, void*& ptr) {
-            if (current == SIZE) return false;
-            
-            ptr = mem[current++] = allocate_aligned(bytes, 16);
-            return true;
+        ~List() {
+            auto node = list.head.next;
+            while(node) {
+                auto temp = node->next;
+                reinterpret_cast<T*>(node)->~T();
+                auto ptr = reinterpret_cast<void*>(node);
+                free_aligned(ptr);
+                node = temp;
+            }
         }
         
         bool alloc(void*& ptr) {
-            if (current == SIZE) return false;
+            auto node = new Node(allocate_aligned(sizeof(T), 16));
+            list.push_back(node);
             
-            ptr = mem[current++] = allocate_aligned(sizeof(T), 16);
+            ptr = node->ptr;
+            current++;
             return true;
         }
-        
-        bool free_to_marker(size_t pos) {
-            if (pos >= SIZE) return false;
-            
-            current = pos;
-            for (int i=0; i < current; i++)
-                free_aligned(mem[i]);
-            
-            return true;
-        }
-        
-        size_t get_marker() {
-            return current;
-        }
-        
-        void dealloc(void*& ptr) { };
         
     private:
-        void* mem[SIZE];
+        struct Node: public structures::Link<Node> {
+            void* ptr;
+            
+            Node(void* ptr): ptr(ptr) {};
+        };
+        
+        structures::LinkedList<Node> list;
         
         size_t current = 0;
         
-    };
-    
-    template <typename T>
-    class Linear {
-        
-    public:
-        bool alloc(void*& ptr) {
-            ptr = allocate_aligned(sizeof(T), 16);
-            return true;
-        };
-        
-        void dealloc(void*& ptr) {
-            free_aligned(ptr);
-        };
     };
     
     template <class Type>
@@ -115,22 +90,6 @@ namespace sgl { namespace memory {
             Type& allocator = *this;
             return allocator.alloc(mem);
         };
-        
-        size_t get_marker() {
-            Type& allocator = *this;
-            return allocator.get_marker();
-        };
-        
-        bool free_to_marker(size_t m) {
-            Type& allocator = *this;
-            return allocator.free_to_marker(m);
-        }
-        
-        //
-        void dealloc(void*& ptr) {
-            Type& allocator = *this;
-            allocator.dealloc(ptr);
-        }
         
     };
     

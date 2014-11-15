@@ -75,10 +75,8 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     
-    Queue<Zap, Pool<1, sizeof(Zap)>> q;
+    Queue<Zap, List<Zap>> q;
     
-    assert(q.enqueue(10));
-    assert(q.enqueue(10));
     assert(q.enqueue(10));
     
 }

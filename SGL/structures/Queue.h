@@ -18,22 +18,13 @@ using namespace sgl::memory;
 namespace sgl { namespace structures {
 
     template <typename T,
-              class Allocator = Linear<T>,
+              class Allocator = List<T>,
               typename = typename std::enable_if< std::is_base_of<Link<T>, T>::value, T>::type>
     class Queue {
         
     public:
         explicit Queue() {}
-        ~Queue() {
-            auto node = list.head.next;
-            while(node) {
-                auto temp = node->next;
-                reinterpret_cast<T*>(node)->~T();
-                auto ptr = reinterpret_cast<void*>(node);
-                allocator.dealloc(ptr);
-                node = temp;
-            }
-        }
+        ~Queue() {}
         
         template <typename...Args>
         bool enqueue(Args&&...args) {
