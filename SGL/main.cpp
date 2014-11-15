@@ -17,6 +17,7 @@
 #include "Queue.h"
 #include "Functions.h"
 #include "ProducerConsumerQueue.h"
+#include "Allocator.h"
 
 #include <iostream>
 #include <iomanip>
@@ -28,6 +29,7 @@
 
 using namespace std;
 using namespace sgl::structures;
+using namespace sgl::memory;
 
 class Zap: public Link<Zap> {
     
@@ -73,13 +75,23 @@ public:
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    ProducerConsumerQueue<Zap> q(10);
+//    ProducerConsumerQueue<Zap> q(10);
+//    
+//    q.enqueue(20);
+//    Zap z;
+//    
+//    cout << q.try_dequeue(z) << endl;
+//    cout << z.v << endl;
+//    
+    Allocator<Stack<10>> pool;
+    //PoolAllocator pool(10, sizeof(Zap));
     
-    q.enqueue(20);
-    Zap z;
+    void* mem;
+    pool.alloc(sizeof(Zap), mem);
+    auto z1 = new (mem) Zap(10);
     
-    cout << q.try_dequeue(z) << endl;
-    cout << z.v << endl;
+    cout << z1->v << endl;
+        
     
 }
 

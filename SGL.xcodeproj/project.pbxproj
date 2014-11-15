@@ -8,18 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		A211532519FC16B7005F9A5F /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A211532319FC16B7005F9A5F /* Memory.cpp */; };
-		A211532819FC177D005F9A5F /* StackAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A211532619FC177D005F9A5F /* StackAllocator.cpp */; };
 		A2B623C719FC02C800AC3DEA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2B623C619FC02C800AC3DEA /* main.cpp */; };
-		E02012D319FFE1B900ADC2D0 /* PoolAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E02012D119FFE1B900ADC2D0 /* PoolAllocator.cpp */; };
+		E056C6A41A16D3840066864F /* Allocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E056C6A21A16D3840066864F /* Allocator.cpp */; };
 		E086BC351A06DA8D009F4A23 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E086BC341A06DA8D009F4A23 /* main.cpp */; };
 		E086BC391A06DAA9009F4A23 /* gtest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E086BC2C1A06D8DA009F4A23 /* gtest.framework */; };
 		E086BC3A1A06DB40009F4A23 /* FixedHashMapTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E019FBF31A06D3390051B069 /* FixedHashMapTest.cpp */; };
 		E086BC3E1A06DB8A009F4A23 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A211532319FC16B7005F9A5F /* Memory.cpp */; };
-		E086BC3F1A06DB8A009F4A23 /* StackAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A211532619FC177D005F9A5F /* StackAllocator.cpp */; };
-		E086BC401A06DB8A009F4A23 /* DoubleBufferedAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E08D407A1A028CD700A90576 /* DoubleBufferedAllocator.cpp */; };
-		E086BC411A06DB8A009F4A23 /* PoolAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E02012D119FFE1B900ADC2D0 /* PoolAllocator.cpp */; };
 		E086BC441A06E04B009F4A23 /* LinkedListTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E086BC421A06E04B009F4A23 /* LinkedListTest.cpp */; };
-		E08D407C1A028CD700A90576 /* DoubleBufferedAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E08D407A1A028CD700A90576 /* DoubleBufferedAllocator.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,26 +41,22 @@
 /* Begin PBXFileReference section */
 		A211532319FC16B7005F9A5F /* Memory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Memory.cpp; sourceTree = "<group>"; };
 		A211532419FC16B7005F9A5F /* Memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Memory.h; sourceTree = "<group>"; };
-		A211532619FC177D005F9A5F /* StackAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StackAllocator.cpp; sourceTree = "<group>"; };
-		A211532719FC177D005F9A5F /* StackAllocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackAllocator.h; sourceTree = "<group>"; };
 		A2B623C319FC02C700AC3DEA /* SGL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SGL; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2B623C619FC02C800AC3DEA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E019FBF31A06D3390051B069 /* FixedHashMapTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FixedHashMapTest.cpp; sourceTree = "<group>"; };
 		E019FBF41A06D3390051B069 /* FixedHashMapTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedHashMapTest.h; sourceTree = "<group>"; };
-		E02012D119FFE1B900ADC2D0 /* PoolAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PoolAllocator.cpp; sourceTree = "<group>"; };
-		E02012D219FFE1B900ADC2D0 /* PoolAllocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoolAllocator.h; sourceTree = "<group>"; };
 		E02D9A9F1A14FEC200E66F99 /* Functions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Functions.h; sourceTree = "<group>"; };
 		E02D9AA01A14FECE00E66F99 /* Templates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Templates.h; sourceTree = "<group>"; };
 		E02D9AA21A14FFEB00E66F99 /* FixedArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedArray.h; sourceTree = "<group>"; };
 		E056C6A11A159A550066864F /* ProducerConsumerQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProducerConsumerQueue.h; sourceTree = "<group>"; };
+		E056C6A21A16D3840066864F /* Allocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Allocator.cpp; sourceTree = "<group>"; };
+		E056C6A31A16D3840066864F /* Allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Allocator.h; sourceTree = "<group>"; };
 		E081A0B51A065583005FAB71 /* FixedHashMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedHashMap.h; sourceTree = "<group>"; };
 		E086BC2C1A06D8DA009F4A23 /* gtest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gtest.framework; path = "../../../../Library/Developer/Xcode/DerivedData/gtest-aozboasjhpozmzcgyekzbnszlxxv/Build/Products/Debug/gtest.framework"; sourceTree = "<group>"; };
 		E086BC321A06DA8D009F4A23 /* UnitTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = UnitTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E086BC341A06DA8D009F4A23 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E086BC421A06E04B009F4A23 /* LinkedListTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LinkedListTest.cpp; sourceTree = "<group>"; };
 		E086BC431A06E04B009F4A23 /* LinkedListTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkedListTest.h; sourceTree = "<group>"; };
-		E08D407A1A028CD700A90576 /* DoubleBufferedAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DoubleBufferedAllocator.cpp; sourceTree = "<group>"; };
-		E08D407B1A028CD700A90576 /* DoubleBufferedAllocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleBufferedAllocator.h; sourceTree = "<group>"; };
 		E08D40801A03D79A00A90576 /* LinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkedList.h; sourceTree = "<group>"; };
 		E0DAFA371A10321600DBDF33 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -154,12 +145,8 @@
 			children = (
 				A211532319FC16B7005F9A5F /* Memory.cpp */,
 				A211532419FC16B7005F9A5F /* Memory.h */,
-				A211532619FC177D005F9A5F /* StackAllocator.cpp */,
-				A211532719FC177D005F9A5F /* StackAllocator.h */,
-				E08D407A1A028CD700A90576 /* DoubleBufferedAllocator.cpp */,
-				E08D407B1A028CD700A90576 /* DoubleBufferedAllocator.h */,
-				E02012D119FFE1B900ADC2D0 /* PoolAllocator.cpp */,
-				E02012D219FFE1B900ADC2D0 /* PoolAllocator.h */,
+				E056C6A21A16D3840066864F /* Allocator.cpp */,
+				E056C6A31A16D3840066864F /* Allocator.h */,
 			);
 			path = memory;
 			sourceTree = "<group>";
@@ -254,11 +241,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E08D407C1A028CD700A90576 /* DoubleBufferedAllocator.cpp in Sources */,
 				A211532519FC16B7005F9A5F /* Memory.cpp in Sources */,
-				E02012D319FFE1B900ADC2D0 /* PoolAllocator.cpp in Sources */,
-				A211532819FC177D005F9A5F /* StackAllocator.cpp in Sources */,
 				A2B623C719FC02C800AC3DEA /* main.cpp in Sources */,
+				E056C6A41A16D3840066864F /* Allocator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,9 +253,6 @@
 			files = (
 				E086BC441A06E04B009F4A23 /* LinkedListTest.cpp in Sources */,
 				E086BC3E1A06DB8A009F4A23 /* Memory.cpp in Sources */,
-				E086BC3F1A06DB8A009F4A23 /* StackAllocator.cpp in Sources */,
-				E086BC401A06DB8A009F4A23 /* DoubleBufferedAllocator.cpp in Sources */,
-				E086BC411A06DB8A009F4A23 /* PoolAllocator.cpp in Sources */,
 				E086BC3A1A06DB40009F4A23 /* FixedHashMapTest.cpp in Sources */,
 				E086BC351A06DA8D009F4A23 /* main.cpp in Sources */,
 			);
