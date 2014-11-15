@@ -64,7 +64,7 @@ namespace sgl { namespace memory {
         struct Node: public structures::Link<Node> {
             void* ptr;
             
-            Node(void* ptr): ptr(ptr) {};
+            Node(void*&& ptr): ptr(std::move(ptr)) {};
         };
         
         structures::LinkedList<Node> list;
