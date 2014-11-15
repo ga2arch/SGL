@@ -58,6 +58,7 @@ namespace sgl { namespace structures {
         FixedHashMap() {};
         ~FixedHashMap() {
             for (auto& node: data_) {
+                reinterpret_cast<HashNode<K, V>*>(node)->~HashNode<K, V>();
                 auto ptr = reinterpret_cast<void*>(node);
                 allocator.dealloc(ptr);
             }
@@ -76,13 +77,13 @@ namespace sgl { namespace structures {
                 data_[i] = std::move(node);
             else {
                 for (int j=0; ;j++) {
-                    auto b = i;
+                    size_t b = i;
                     
                     i += j*j;
                     b -= j*j;
                     
-                    if (i < SIZE && !data_[i]) data_[i] = std::move(node);
-                    if (b < SIZE && !data_[b]) data_[b] = std::move(node);
+                    if (i < SIZE && !data_[i]) data_[i] = std::move(node); return;
+                    if (b < SIZE && !data_[b]) data_[b] = std::move(node); return;
                     
                     if (b >= SIZE && i >= SIZE)
                         throw std::out_of_range("Error: not enough space");

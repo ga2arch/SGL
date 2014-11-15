@@ -28,6 +28,7 @@ namespace sgl { namespace structures {
             auto node = list.head.next;
             while(node) {
                 auto temp = node->next;
+                reinterpret_cast<T*>(node)->~T();
                 auto ptr = reinterpret_cast<void*>(node);
                 allocator.dealloc(ptr);
                 node = temp;

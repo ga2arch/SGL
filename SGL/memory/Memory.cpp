@@ -34,6 +34,8 @@ namespace sgl { namespace memory {
     }
 
     void free_aligned(void* mem) {
+        if (mem == nullptr) return;
+        
         const uint8_t* p_aligned_mem = reinterpret_cast<const uint8_t*>(mem);
         uintptr_t aligned_address = reinterpret_cast<uintptr_t>(p_aligned_mem);
         ptrdiff_t adjustement = static_cast<ptrdiff_t>(p_aligned_mem[-1]);
