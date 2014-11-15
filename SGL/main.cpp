@@ -9,8 +9,6 @@
 #include <iostream>
 #include <thread>
 #include "Memory.h"
-#include "StackAllocator.h"
-#include "PoolAllocator.h"
 #include "LinkedList.h"
 #include "FixedHashMap.h"
 #include "FixedArray.h"
@@ -75,24 +73,12 @@ public:
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-//    ProducerConsumerQueue<Zap> q(10);
-//    
-//    q.enqueue(20);
-//    Zap z;
-//    
-//    cout << q.try_dequeue(z) << endl;
-//    cout << z.v << endl;
-//    
-    Allocator<Stack<10>> pool;
-    //PoolAllocator pool(10, sizeof(Zap));
     
-    void* mem;
-    pool.alloc(sizeof(Zap), mem);
-    auto z1 = new (mem) Zap(10);
+    Queue<Zap, 10> q;
     
-    cout << z1->v << endl;
-        
+    q.enqueue(10);
     
+    cout << q.dequeue().v << endl;
 }
 
 

@@ -11,31 +11,28 @@
 
 #include <stdio.h>
 #include <LinkedList.h>
-#include <PoolAllocator.h>
+#include "Allocator.h"
+
+using namespace sgl::memory;
 
 namespace sgl { namespace structures {
 
-    template <typename T>
+    template <typename T, size_t SIZE, class Allocator = Allocator<Pool<SIZE, sizeof(T)>>>
     class Queue {
         
     public:
-        explicit Queue(memory::PoolAllocator& pool): pool(pool) {}
+        explicit Queue() {}
         
-        void enqueue(const T& t) {
-            auto lk = new (pool.get_block()) T(t);
-            list.push_back(reinterpret_cast<Link<T>*>(lk));
-        }
-        
-        
-        void enqueue(T&& t) {
-            auto lk = new (pool.get_block()) T(std::forward<T>(t));
-            list.push_back(reinterpret_cast<Link<T>*>(lk));
-        };
-        
-        template <typename ...Args>
-        void emplace(Args&&... args) {
-            auto lk = new (pool.get_block()) T(std::forward<Args>(args)...);
-            list.push_back(reinterpret_cast<Link<T>*>(lk));
+        template <typename...Args>
+        bool enqueue(Args&&...args) {
+            void* mem;
+            if (allocator.alloc(mem)) {
+                auto lk = new (mem) T(std::forward<Args>(args)...);
+                list.push_back(reinterpret_cast<Link<T>*>(lk));
+                
+                return true;
+            } else
+                return false;
         }
         
         T&& dequeue() {
@@ -43,7 +40,7 @@ namespace sgl { namespace structures {
         };
         
     private:
-        memory::PoolAllocator& pool;
+        Allocator allocator;
         LinkedList<T> list;
         
     };
