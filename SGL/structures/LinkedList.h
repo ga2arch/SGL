@@ -106,6 +106,8 @@ namespace sgl { namespace structures {
             
             size--;
         }
+        
+        //TODO remove_at()
     };
     
 }}

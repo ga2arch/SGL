@@ -29,7 +29,7 @@ namespace sgl { namespace memory {
             
             auto address = reinterpret_cast<uintptr_t>(mem) + used*SIZE;
             used++;
-            return std::move(reinterpret_cast<void*>(address));;
+            return reinterpret_cast<void*>(address);
         }
         
     private:
@@ -79,6 +79,7 @@ namespace sgl { namespace memory {
         
     public:
         Allocator(): Type() {};
+        ~Allocator() { ~Type(); };
         
         // Pool
         void* alloc(size_t bytes) {

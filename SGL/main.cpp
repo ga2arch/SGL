@@ -75,14 +75,12 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     
-    Queue<Zap, List<Zap>> q;
+    Queue<Zap, Pool<10,sizeof(Zap)>> q;
     
-    void* m = nullptr;
+    assert(q.enqueue(10));
+    assert(q.dequeue().v == 10);
     
-    assert(m == nullptr);
     
-    free(m);
-
 }
 
 
