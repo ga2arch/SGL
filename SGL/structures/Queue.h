@@ -28,8 +28,7 @@ namespace sgl { namespace structures {
         
         template <typename...Args>
         bool enqueue(Args&&...args) {
-            void* mem;
-            if (allocator.alloc(mem)) {
+            if (auto mem = allocator.alloc()) {
                 auto lk = new (mem) T(std::forward<Args>(args)...);
                 list.push_back(reinterpret_cast<Link<T>*>(lk));
                 

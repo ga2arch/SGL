@@ -11,6 +11,9 @@
 
 #include <stdio.h>
 #include "Memory.h"
+#include "LinkedList.h"
+
+using namespace sgl::structures;
 
 namespace sgl { namespace memory {
     
@@ -21,13 +24,12 @@ namespace sgl { namespace memory {
         Pool(): mem(allocate_aligned(NUM*SIZE, 16)) {};
         ~Pool() { free_aligned(mem); };
         
-        bool alloc(void*& ptr) {
-            if (used == NUM) return false;
+        void* alloc() {
+            if (used == NUM) return nullptr;
             
             auto address = reinterpret_cast<uintptr_t>(mem) + used*SIZE;
-            ptr = std::move(reinterpret_cast<void*>(address));
             used++;
-            return true;
+            return std::move(reinterpret_cast<void*>(address));;
         }
         
     private:
@@ -51,23 +53,22 @@ namespace sgl { namespace memory {
             }
         }
         
-        bool alloc(void*& ptr) {
+        void* alloc() {
             auto node = new Node(allocate_aligned(sizeof(T), 16));
             list.push_back(node);
             
-            ptr = node->ptr;
             current++;
-            return true;
+            return node->ptr;
         }
         
     private:
-        struct Node: public structures::Link<Node> {
+        struct Node: public Link<Node> {
             void* ptr;
             
             Node(void*&& ptr): ptr(std::move(ptr)) {};
         };
         
-        structures::LinkedList<Node> list;
+        LinkedList<Node> list;
         
         size_t current = 0;
         
@@ -80,15 +81,15 @@ namespace sgl { namespace memory {
         Allocator(): Type() {};
         
         // Pool
-        bool alloc(size_t bytes, void*& mem) {
+        void* alloc(size_t bytes) {
             Type& allocator = *this;
-            return allocator.alloc(bytes, mem);
+            return allocator.alloc(bytes);
         };
         
         // Stack
-        bool alloc(void*& mem) {
+        void* alloc() {
             Type& allocator = *this;
-            return allocator.alloc(mem);
+            return allocator.alloc();
         };
         
     };

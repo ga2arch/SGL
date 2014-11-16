@@ -59,10 +59,11 @@ namespace sgl { namespace structures {
         ~FixedHashMap() {}
         
         void put(K key, V value) {
-            void* mem;
-            assert(allocator.alloc(mem));
             
-            auto node = new (mem) HashNode<K,V>(std::move(key),std::move(value));
+            auto mem = allocator.alloc();
+            assert(mem);
+            auto node = new (mem) HashNode<K,V>(std::move(key),
+                                                std::move(value));
             
             auto h = h_fun(key);
             size_t i = h % SIZE;

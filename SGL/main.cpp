@@ -77,8 +77,12 @@ int main(int argc, const char * argv[]) {
     
     Queue<Zap, List<Zap>> q;
     
-    assert(q.enqueue(10));
+    void* m = nullptr;
     
+    assert(m == nullptr);
+    
+    free(m);
+
 }
 
 
