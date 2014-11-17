@@ -73,3 +73,16 @@ TEST(LinkedList, Remove) {
     
     ASSERT_EQ(((Elem*)ls.tail.prev)->value, e1.value);
 }
+
+TEST(LinkedList, RemoveAt) {
+    LinkedList<int> ls;
+    
+    Elem e1(10);
+    Elem e2(2);
+    
+    ls.push_back(&e1);
+    ls.push_back(&e2);
+    ls.remove_at(0);
+    
+    ASSERT_EQ(((Elem*)ls.head.next)->value, e2.value);
+}

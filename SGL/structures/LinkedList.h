@@ -98,16 +98,26 @@ namespace sgl { namespace structures {
             
             if (lk->prev) {
                 lk->prev->next = lk->next;
-            }
-            else
-                head.next = lk->prev;
+            } else
+                head.next = lk->next;
             
             lk->prev = lk->next = nullptr;
             
             size--;
         }
         
-        //TODO remove_at(size_t pos)
+        void remove_at(int pos) {
+            int i = 0;
+            auto lk = head.next;
+            
+            while (lk) {
+                if (i == pos)
+                    return remove(lk);
+                
+                lk = lk->next;
+                i++;
+            }
+        }
     };
     
 }}

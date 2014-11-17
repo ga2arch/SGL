@@ -75,12 +75,18 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     
-    Queue<Zap, Pool<10,sizeof(Zap)>> q;
+    LinkedList<Zap> list;
     
-    assert(q.enqueue(10));
-    assert(q.dequeue().v == 10);
+    Zap z1 = Zap(10);
+    Zap z2 = Zap(20);
+
     
+    list.push_front(&z1);
+    list.push_front(&z2);
     
+    list.remove_at(0);
+    
+    cout << ((Zap*)list.head.next)->v << endl;
 }
 
 
