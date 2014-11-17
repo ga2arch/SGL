@@ -57,6 +57,7 @@
 		E086BC431A06E04B009F4A23 /* LinkedListTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkedListTest.h; sourceTree = "<group>"; };
 		E08D40801A03D79A00A90576 /* LinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkedList.h; sourceTree = "<group>"; };
 		E0DAFA371A10321600DBDF33 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
+		E0DB94CD1A1A3D17006FA0A5 /* BinaryTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BinaryTree.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +157,7 @@
 				E02D9AA21A14FFEB00E66F99 /* FixedArray.h */,
 				E0DAFA371A10321600DBDF33 /* Queue.h */,
 				E056C6A11A159A550066864F /* ProducerConsumerQueue.h */,
+				E0DB94CD1A1A3D17006FA0A5 /* BinaryTree.h */,
 			);
 			name = structures;
 			path = SGL/structures;

@@ -16,6 +16,7 @@
 #include "Functions.h"
 #include "ProducerConsumerQueue.h"
 #include "Allocator.h"
+#include "BinaryTree.h"
 
 #include <iostream>
 #include <iomanip>
@@ -75,6 +76,14 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
 
+    BinaryTree<int> btree;
+    
+    btree.insert(new int(10));
+    
+    auto n = btree.find(10);
+    
+    assert(*n->elem == 10);
+    
 }
 
 

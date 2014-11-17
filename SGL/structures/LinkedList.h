@@ -33,10 +33,6 @@ namespace sgl { namespace structures {
         Link<T> tail;
         size_t size;
         
-        explicit LinkedList(): size(0) {
-            head.next = tail.prev = nullptr;
-        }
-        
         void push_front(Link<T>* lk) {
             if (head.next) {
                 auto s = head.next;
