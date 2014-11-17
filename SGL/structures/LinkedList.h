@@ -67,23 +67,25 @@ namespace sgl { namespace structures {
         
         T&& pop() {
             if (head.next) {
-                auto lk = head.next;
+                auto lk = find(0);
                 remove(lk);
-                
-                size--;
                 return std::move(*reinterpret_cast<T*>(lk));
+                
             } else {
                 throw std::out_of_range("Error: The list is empty");
             }
         }
         
-        T&& remove_last() {
+        T&& get(int pos) {
+            return std::move(*reinterpret_cast<T*>(find(pos)));
+        }
+        
+        void remove_last() {
             if (tail.prev) {
                 auto lk = tail.prev;
                 tail.prev = lk->prev;
                 
                 size--;
-                return std::move(*reinterpret_cast<T*>(lk));
             } else {
                 throw std::out_of_range("Error: The list is empty");
             }
@@ -106,19 +108,26 @@ namespace sgl { namespace structures {
         }
         
         void remove_at(int pos) {
+            remove(find(pos));
+        }
+        
+        Link<T>* find(int pos) {
+            if (pos >= size) throw std::out_of_range("");
+            
             int i = 0;
             auto lk = head.next;
             
             while (lk) {
                 if (i == pos)
-                    return remove(lk);
+                    return lk;
                 
                 lk = lk->next;
                 i++;
             }
+            
+            return nullptr;
         }
     };
-    
 }}
 
 #endif /* defined(__SGL__LinkedList__) */
