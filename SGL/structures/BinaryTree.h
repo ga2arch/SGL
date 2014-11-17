@@ -85,7 +85,6 @@ namespace sgl { namespace structures {
                 }
                 
                 if (node) return node;
-                throw std::runtime_error("");
             }
             
             if (elem < *root->elem) {
