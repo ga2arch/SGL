@@ -68,8 +68,7 @@ namespace sgl { namespace structures {
         T&& pop() {
             if (head.next) {
                 auto lk = head.next;
-                head.next = lk->next;
-                head.prev = nullptr;
+                remove(lk);
                 
                 size--;
                 return std::move(*reinterpret_cast<T*>(lk));

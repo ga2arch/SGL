@@ -43,18 +43,20 @@ namespace sgl { namespace memory {
         
     public:
         ~List() {
-            auto node = list.head.next;
-            while(node) {
-                auto temp = node->next;
-                reinterpret_cast<T*>(node)->~T();
-                auto ptr = reinterpret_cast<void*>(node);
+            auto lk = list.head.next;
+            while(lk) {
+                auto temp = lk->next;
+                auto node = reinterpret_cast<Node*>(lk);
+                node->ptr->~T();
+                auto ptr = reinterpret_cast<void*>(node->ptr);
                 free_aligned(ptr);
-                node = temp;
+                lk = temp;
             }
         }
         
         void* alloc() {
-            auto node = new Node(allocate_aligned(sizeof(T), 16));
+            auto ptr = reinterpret_cast<T*>(allocate_aligned(sizeof(T), 16));
+            auto node = new Node(std::move(ptr));
             list.push_back(node);
             
             current++;
@@ -63,9 +65,9 @@ namespace sgl { namespace memory {
         
     private:
         struct Node: public Link<Node> {
-            void* ptr;
+            T* ptr;
             
-            Node(void*&& ptr): ptr(std::move(ptr)) {};
+            Node(T*&& ptr): ptr(std::move(ptr)) {};
         };
         
         LinkedList<Node> list;

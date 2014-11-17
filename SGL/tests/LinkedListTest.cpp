@@ -12,14 +12,14 @@
 
 using namespace sgl::structures;
 
-class Elem: public Link<int> {
+class Elem: public Link<Elem> {
 public:
     explicit Elem(int v): value(v) {};
     int value;
 };
 
 TEST(LinkedList, PushBack) {
-    LinkedList<int> ls;
+    LinkedList<Elem> ls;
     
     Elem e1(10);
     Elem e2(2);
@@ -31,7 +31,7 @@ TEST(LinkedList, PushBack) {
 }
 
 TEST(LinkedList, PushFront) {
-    LinkedList<int> ls;
+    LinkedList<Elem> ls;
     
     Elem e1(10);
     Elem e2(2);
@@ -42,8 +42,22 @@ TEST(LinkedList, PushFront) {
     ASSERT_EQ(((Elem*)ls.head.next)->value, e2.value);
 }
 
+TEST(LinkedList, Pop) {
+    LinkedList<Elem> ls;
+    
+    Elem e1(10);
+    Elem e2(2);
+    
+    ls.push_back(&e1);
+    ls.push_back(&e2);
+    
+    Elem&& e = ls.pop();
+    
+    ASSERT_EQ(e.value, e1.value);
+}
+
 TEST(LinkedList, RemoveLast) {
-    LinkedList<int> ls;
+    LinkedList<Elem> ls;
     
     Elem e1(10);
     Elem e2(2);
@@ -56,13 +70,13 @@ TEST(LinkedList, RemoveLast) {
 }
 
 TEST(LinkedList, ThrowOnRemoveLastEmpty) {
-    LinkedList<int> ls;
+    LinkedList<Elem> ls;
 
     ASSERT_THROW(ls.remove_last(), std::out_of_range);
 }
 
 TEST(LinkedList, Remove) {
-    LinkedList<int> ls;
+    LinkedList<Elem> ls;
     
     Elem e1(10);
     Elem e2(2);
@@ -75,7 +89,7 @@ TEST(LinkedList, Remove) {
 }
 
 TEST(LinkedList, RemoveAt) {
-    LinkedList<int> ls;
+    LinkedList<Elem> ls;
     
     Elem e1(10);
     Elem e2(2);
