@@ -16,9 +16,9 @@ namespace sgl { namespace structures {
     template <typename T>
     struct Node {
     
-        std::shared_ptr<Node<T>> root  = nullptr;
-        std::shared_ptr<Node<T>> right = nullptr;
-        std::shared_ptr<Node<T>> left  = nullptr;
+        std::shared_ptr<Node<T>> parent = nullptr;
+        std::shared_ptr<Node<T>> right  = nullptr;
+        std::shared_ptr<Node<T>> left   = nullptr;
         
         std::unique_ptr<T> elem;
         
@@ -30,7 +30,7 @@ namespace sgl { namespace structures {
     class BinaryTree {
         
     public:
-        std::shared_ptr<Node<T>> root;
+        std::shared_ptr<Node<T>> root = nullptr;
         
         void insert(std::unique_ptr<T> elem) {
             if (!root) {

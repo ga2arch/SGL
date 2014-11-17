@@ -10,5 +10,15 @@
 #define __SGL__LinkedListTest__
 
 #include <stdio.h>
+#include <gtest/gtest.h>
+#include "LinkedList.h"
+
+using namespace sgl::structures;
+
+class Elem: public Link<Elem> {
+public:
+    explicit Elem(int v): value(v) {};
+    int value;
+};
 
 #endif /* defined(__SGL__LinkedListTest__) */

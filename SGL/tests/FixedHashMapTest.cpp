@@ -6,11 +6,7 @@
 //  Copyright (c) 2014 Ga2 & co. All rights reserved.
 //
 
-#include "FixedHashMap.h"
 #include "FixedHashMapTest.h"
-#include <gtest/gtest.h>
-
-using namespace sgl::structures;
 
 TEST(FixedHashMapTest, ThrowsOnNotFoundKey) {
     FixedHashMap<int, std::string, 10> m;

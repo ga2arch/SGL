@@ -10,5 +10,10 @@
 #define __SGL__HashMapTest__
 
 #include <stdio.h>
+#include "FixedHashMap.h"
+#include "FixedHashMapTest.h"
+#include <gtest/gtest.h>
+
+using namespace sgl::structures;
 
 #endif /* defined(__SGL__HashMapTest__) */

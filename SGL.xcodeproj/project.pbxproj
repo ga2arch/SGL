@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A211532519FC16B7005F9A5F /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A211532319FC16B7005F9A5F /* Memory.cpp */; };
 		A2B623C719FC02C800AC3DEA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2B623C619FC02C800AC3DEA /* main.cpp */; };
+		E02350191A1A4E7700A23E24 /* BinaryTreeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E02350171A1A4E7700A23E24 /* BinaryTreeTest.cpp */; };
 		E086BC351A06DA8D009F4A23 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E086BC341A06DA8D009F4A23 /* main.cpp */; };
 		E086BC391A06DAA9009F4A23 /* gtest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E086BC2C1A06D8DA009F4A23 /* gtest.framework */; };
 		E086BC3A1A06DB40009F4A23 /* FixedHashMapTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E019FBF31A06D3390051B069 /* FixedHashMapTest.cpp */; };
@@ -44,6 +45,8 @@
 		A2B623C619FC02C800AC3DEA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E019FBF31A06D3390051B069 /* FixedHashMapTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FixedHashMapTest.cpp; sourceTree = "<group>"; };
 		E019FBF41A06D3390051B069 /* FixedHashMapTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedHashMapTest.h; sourceTree = "<group>"; };
+		E02350171A1A4E7700A23E24 /* BinaryTreeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BinaryTreeTest.cpp; sourceTree = "<group>"; };
+		E02350181A1A4E7700A23E24 /* BinaryTreeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinaryTreeTest.h; sourceTree = "<group>"; };
 		E02D9A9F1A14FEC200E66F99 /* Functions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Functions.h; sourceTree = "<group>"; };
 		E02D9AA01A14FECE00E66F99 /* Templates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Templates.h; sourceTree = "<group>"; };
 		E02D9AA21A14FFEB00E66F99 /* FixedArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedArray.h; sourceTree = "<group>"; };
@@ -116,6 +119,8 @@
 				E019FBF41A06D3390051B069 /* FixedHashMapTest.h */,
 				E086BC421A06E04B009F4A23 /* LinkedListTest.cpp */,
 				E086BC431A06E04B009F4A23 /* LinkedListTest.h */,
+				E02350171A1A4E7700A23E24 /* BinaryTreeTest.cpp */,
+				E02350181A1A4E7700A23E24 /* BinaryTreeTest.h */,
 			);
 			name = tests;
 			path = ../SGL/tests;
@@ -250,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E086BC441A06E04B009F4A23 /* LinkedListTest.cpp in Sources */,
+				E02350191A1A4E7700A23E24 /* BinaryTreeTest.cpp in Sources */,
 				E086BC3E1A06DB8A009F4A23 /* Memory.cpp in Sources */,
 				E086BC3A1A06DB40009F4A23 /* FixedHashMapTest.cpp in Sources */,
 				E086BC351A06DA8D009F4A23 /* main.cpp in Sources */,

@@ -7,16 +7,6 @@
 //
 
 #include "LinkedListTest.h"
-#include "LinkedList.h"
-#include <gtest/gtest.h>
-
-using namespace sgl::structures;
-
-class Elem: public Link<Elem> {
-public:
-    explicit Elem(int v): value(v) {};
-    int value;
-};
 
 TEST(LinkedList, PushBack) {
     LinkedList<Elem> ls;
