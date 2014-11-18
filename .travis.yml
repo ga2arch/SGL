@@ -10,3 +10,4 @@ script: xctool
 xcode_project: SGL.xcodeproj
 xcode_scheme: UnitTest
 
+os: osx
