@@ -4,8 +4,6 @@ before_install:
   - brew update
   - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
 
-script: xctool
-
 xcode_project: SGL.xcodeproj
 xcode_scheme: UnitTest
 
