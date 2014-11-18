@@ -10,8 +10,8 @@
 		A211532519FC16B7005F9A5F /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A211532319FC16B7005F9A5F /* Memory.cpp */; };
 		A2B623C719FC02C800AC3DEA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2B623C619FC02C800AC3DEA /* main.cpp */; };
 		E02350191A1A4E7700A23E24 /* BinaryTreeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E02350171A1A4E7700A23E24 /* BinaryTreeTest.cpp */; };
+		E08458D51A1B955700427C8C /* gtest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E08458D41A1B955700427C8C /* gtest.framework */; };
 		E086BC351A06DA8D009F4A23 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E086BC341A06DA8D009F4A23 /* main.cpp */; };
-		E086BC391A06DAA9009F4A23 /* gtest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E086BC2C1A06D8DA009F4A23 /* gtest.framework */; };
 		E086BC3A1A06DB40009F4A23 /* FixedHashMapTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E019FBF31A06D3390051B069 /* FixedHashMapTest.cpp */; };
 		E086BC3E1A06DB8A009F4A23 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A211532319FC16B7005F9A5F /* Memory.cpp */; };
 		E086BC441A06E04B009F4A23 /* LinkedListTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E086BC421A06E04B009F4A23 /* LinkedListTest.cpp */; };
@@ -53,7 +53,8 @@
 		E056C6A11A159A550066864F /* ProducerConsumerQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProducerConsumerQueue.h; sourceTree = "<group>"; };
 		E056C6A31A16D3840066864F /* Allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Allocator.h; sourceTree = "<group>"; };
 		E081A0B51A065583005FAB71 /* FixedHashMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedHashMap.h; sourceTree = "<group>"; };
-		E086BC2C1A06D8DA009F4A23 /* gtest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gtest.framework; path = "../../../../Library/Developer/Xcode/DerivedData/gtest-aozboasjhpozmzcgyekzbnszlxxv/Build/Products/Debug/gtest.framework"; sourceTree = "<group>"; };
+		E08458D31A1B954F00427C8C /* Frameworks */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Frameworks; path = SGL/Frameworks; sourceTree = "<group>"; };
+		E08458D41A1B955700427C8C /* gtest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gtest.framework; path = SGL/Frameworks/gtest.framework; sourceTree = "<group>"; };
 		E086BC321A06DA8D009F4A23 /* UnitTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = UnitTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E086BC341A06DA8D009F4A23 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E086BC421A06E04B009F4A23 /* LinkedListTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LinkedListTest.cpp; sourceTree = "<group>"; };
@@ -75,7 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E086BC391A06DAA9009F4A23 /* gtest.framework in Frameworks */,
+				E08458D51A1B955700427C8C /* gtest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,7 +86,8 @@
 		A2B623BA19FC02C700AC3DEA = {
 			isa = PBXGroup;
 			children = (
-				E086BC2C1A06D8DA009F4A23 /* gtest.framework */,
+				E08458D41A1B955700427C8C /* gtest.framework */,
+				E08458D31A1B954F00427C8C /* Frameworks */,
 				A2B623C519FC02C700AC3DEA /* SGL */,
 				E086BC331A06DA8D009F4A23 /* UnitTest */,
 				A2B623C419FC02C700AC3DEA /* Products */,
@@ -380,6 +382,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/gtest-aozboasjhpozmzcgyekzbnszlxxv/Build/Products/Debug",
+					"$(PROJECT_DIR)/SGL/Frameworks",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -399,6 +402,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/gtest-aozboasjhpozmzcgyekzbnszlxxv/Build/Products/Debug",
+					"$(PROJECT_DIR)/SGL/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
