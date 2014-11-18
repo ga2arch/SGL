@@ -41,9 +41,9 @@ TEST(LinkedList, Pop) {
     ls.push_back(&e1);
     ls.push_back(&e2);
     
-    Elem&& e = ls.pop();
+    Elem* e = ls.pop();
     
-    ASSERT_EQ(e.value, e1.value);
+    ASSERT_EQ(e->value, e1.value);
 }
 
 TEST(LinkedList, RemoveLast) {

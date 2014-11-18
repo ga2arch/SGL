@@ -61,19 +61,19 @@ namespace sgl { namespace structures {
             size++;
         }
         
-        T&& pop() {
+        T* pop() {
             if (head.next) {
                 auto lk = find(0);
                 remove(lk);
-                return std::move(*reinterpret_cast<T*>(lk));
+                return std::move(reinterpret_cast<T*>(lk));
                 
             } else {
                 throw std::out_of_range("Error: The list is empty");
             }
         }
         
-        T&& get(int pos) {
-            return std::move(*reinterpret_cast<T*>(find(pos)));
+        T* get(int pos) {
+            return std::move(reinterpret_cast<T*>(find(pos)));
         }
         
         void remove_last() {
