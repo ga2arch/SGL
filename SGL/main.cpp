@@ -76,6 +76,12 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
 
+    FixedArray<int, 10> a;
+    
+    a.insert<4>(10);
+    
+    assert(a.get<4>() == 10);
+    
     BinaryTree<int> btree;
     
     btree.insert(new int(10));

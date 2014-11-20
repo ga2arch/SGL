@@ -38,13 +38,13 @@ namespace sgl { namespace structures {
         }
 
         template <size_t n>
-        typename std::enable_if<(n < SIZE && n >= 0), void>::type
+        typename std::enable_if<(n < SIZE && n >= 0)>::type
         insert(T&& elem) {
             data_[n] = std::forward<T>(elem);
         }
         
         template <size_t n>
-        typename std::enable_if<(n < SIZE && n >= 0), void>::type
+        typename std::enable_if<(n < SIZE && n >= 0)>::type
         insert(const T& elem) {
             data_[n] = elem;
         }

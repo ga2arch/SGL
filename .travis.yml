@@ -1,9 +1,5 @@
-language: objective-c
+language: cpp
 
-before_install:
-  - brew update
-  - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
+compiler: clang
 
-xcode_project: SGL.xcodeproj
-xcode_scheme: UnitTest
 
